@@ -1,0 +1,287 @@
+body {
+    font-family: 'Gilroy-Light ☞';
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Gilroy-ExtraBold ☞';
+}
+
+.navbar-light .navbar-nav .nav-link {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.btn-success {
+    background-color: #143C2F;
+    border-color: #143C2F ;
+}
+
+.primary-bg {
+    background: #329337;
+}
+
+.primary-bg a:link {
+    color: #fff;
+}
+
+.primary-bg a:visited {
+    color: #fff;
+}
+
+.secondary-bg {
+    background: #a8cf45;
+}
+
+.text-green {
+    color: #007f4b;
+}
+
+.text-white {
+    color: #fff;
+}
+
+.feature {
+    position: relative;
+}
+
+.feature-text {
+    position: absolute;
+    left: 40%;
+    /* top: 50%; */
+    transform: translate(-30%, 38%);
+    z-index: 20;
+}
+
+.feature-text h1 {
+    margin-top: 100px;
+    font-size: 55px;
+}
+
+.feature-image {
+    height: 80vh;
+    background-size: cover;
+}
+
+video {
+    width: 100%;
+}
+
+.page-header-title {
+    height: 20vh;
+    background-image: url(../images/sec1.png);
+    background-size: cover;
+}
+
+.how-it-works {
+    background-image: url(../images/sec1.png);
+    background-size: cover;
+    padding: 70px 60px 30px;
+}
+
+.how-it-works .caption {
+    font-weight: bold;
+    position: relative;
+    top: 90px;
+    color: #fff;
+    z-index: 10;
+}
+
+.triangle {
+    position: relative;
+    top: 55px;
+    display: inline-block;
+    border-style: solid;
+    border-width: 78px 72px 0 72px;
+    border-color: #329337 transparent transparent transparent;
+    z-index: 8;
+}
+
+.button-right {
+    float: left;
+    width: 0; 
+    height: 0; 
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    cursor: pointer;
+    border-left: 30px solid #329337;
+}
+
+.button-left {
+    float: right;
+    width: 0; 
+    height: 0; 
+    border-top: 30px solid transparent;
+    border-bottom: 30px solid transparent; 
+    cursor: pointer;
+    border-right:30px solid #fff; 
+}
+
+.inner-text {
+    background: #fff;
+    padding: 50px 20px;
+    padding-top: 70px;
+    height: 300px;
+    transition: transform .2s ease-out;
+}
+
+.inner-text:hover {
+    transform: scale(1.05);
+}
+
+.about-features {
+    background-image: url(../images/tractor.png);
+    background-size: cover;
+}
+
+.risks img {
+    width: 65%
+}
+
+.projects {
+    padding: 50px 30px;
+}
+
+.project {
+    color: #fff;
+    padding: 10px;
+}
+
+.goal {
+    background: #a8cf45;
+    padding: 5px 5px 1px 10px;
+    border-bottom-right-radius: 30px;
+    font-family: 'Gilroy-ExtraBold ☞';
+    font-size: 13px;
+    color: #000;
+}
+
+.goal-caption {
+    background: #007f4b;
+    color: #fff;
+    font-family: 'Gilroy-ExtraBold ☞';
+    font-size: 20px;
+    padding-top: 5px;
+    padding-left: 52px;
+    border-bottom-left-radius: 30px;
+}
+
+.project p {
+    line-height: 13px;
+    font-size: 13px;
+}
+
+.project-img img {
+    width: 100%;
+
+}
+
+.why-invest {
+    border: 3px solid #329337;
+    color: #329337;
+    padding: 40px;
+    transition: transform .2s ease-out;
+}
+
+.why-invest span {
+    color: #333;
+}
+
+.why-invest:hover {
+    transform: scale(1.05);
+}
+
+.details {
+    padding: 15px;
+    text-align: left;
+    color: #fff;
+}
+
+.testimony {
+   background-image: url(../images/blackwoman.png);
+   background-repeat: no-repeat; 
+   background-position: 98% -20px;
+   background-color: #329337;
+   opacity: 1;
+   color:#fff;
+}
+
+.team-photo {
+    padding: 10px;
+    transition: transform .2s ease-out;
+}
+
+.team-photo:hover {
+    transform: scale(1.05);
+}
+
+.team-photo img {
+    width: 100%;
+    opacity: 0.5
+}
+
+.team-details {
+    color: #fff;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    background: #007f4b;
+}
+
+.faq {
+    background-image: url(../images/wheat.png);
+}
+
+.auth_bg {
+    background: #adb1ad;
+    color: #fff;
+}
+
+.signup-bg {
+    background-image: url(../images/tractor.png);
+    background-size: cover;
+}
+
+.accordion-item, .accordion-button {
+    background-color: transparent;
+    border: none;
+}
+
+.accordion-button:not(.collapsed) {
+    color: inherit;
+}
+
+#slide2 {
+    opacity: 0;
+    animation: fade-in 0.5s ease-in;
+}
+
+@keyframes fade-in {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+@keyframes fade-out {
+	0% { opacity: 1; }
+	100% { opacity: 0; }
+}
+
+/***
+    Tablets
+*/
+@media (max-width: 768px) { 
+    .feature-text h1 {
+        margin-top: 0;
+    }
+}
+
+/***
+    Mobile
+*/
+@media (max-width: 576px) {
+    .feature-text h1 {
+        font-size: 26px;
+        margin-top: -22px;
+    }
+}
