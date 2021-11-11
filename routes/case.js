@@ -3,6 +3,7 @@ const router = express.Router();
 const CaseCategory = require('../models').CaseCategory;
 const CaseStatus = require('../models').CaseStatus;
 const CaseService = require('../services/caseService');
+const Case = require('../models/case').Case;
 
 //Form to add a case
 router.get('/cases/add', function (req, res) {
@@ -21,5 +22,14 @@ router.post('/cases/add', async (req, res, next) => {
     }
 });
 
+//Retrieve all cases
+router.get('/cases', async(req, res, next) => {
+    try {
+        const add = await Case.find()
+        //render
+    } catch (err) {
+        next(err);
+    }
+})
 
 module.exports = router;
