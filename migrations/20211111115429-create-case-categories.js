@@ -1,9 +1,8 @@
 'use strict';
 
-const categories = [
-  "police brutality",
-  "domestic violence"
-];
+const utilities = require("../libraries/utilities")
+
+const categories = utilities.caseCategories
 
 const catArr = []; 
 categories.forEach((item, index) => {
