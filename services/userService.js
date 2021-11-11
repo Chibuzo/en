@@ -28,7 +28,8 @@ const create = async ({ fname, lname, email, phone, country, gender, password })
 const login = async ({ email, password }) => {
     const foundUser = await User.findOne({
         where: { email },
-        attributes: ['id', 'fullname', 'email', 'country', 'phone', 'password', 'active']
+        //attributes: ['id', 'fullname', 'email', 'country', 'phone', 'password', 'active']
+        attributes: ['id', 'fullname', 'email', 'phone', 'password', 'active']
     });
     if (!foundUser) throw new ErrorHandler(404, 'Email or password is incorrect');
 
