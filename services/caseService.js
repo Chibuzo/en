@@ -1,25 +1,22 @@
-const { Case, CaseCategory, Agency } = require('../models');
-const CaseMedia = require('../models').CaseMedia;
+const { Case, CaseCategory, CaseMedia, Agency } = require('../models');
+const { uploadFile } = require('../helpers/fileUpload');
 const { ErrorHandler } = require('../helpers/errorHandler');
-const Storage = require('../aws/awsService');
+// const Storage = require('../aws/awsService');
 const { buildCriteria } = require('../services/UtillityService');
 
 
 
-const save = async ({ title, description, CaseCategoryId, event_date, AdminId, AgencyId, id }) => {
+const save = async ({ title, description, CaseCategoryId, event_date, status = 'new', AdminId, AgencyId, id }, files) => {
     if (!title) throw new ErrorHandler(400, 'A title or subject is required');
     if (!description) throw new ErrorHandler(400, 'A description is required');
     if (!CaseCategoryId) throw new ErrorHandler(400, 'This case must be assigned to a category');
 
-    //if a status is not set, we set to new by default
-    // if (!status_id) {
-    //     status_id = 1 //'new' should always the first
-    // }
     const data = {
         title,
         description,
         CaseCategoryId,
         event_date,
+        status,
         AdminId,
         AgencyId
     };
@@ -31,18 +28,15 @@ const save = async ({ title, description, CaseCategoryId, event_date, AdminId, A
         _case = await Case.create(data);
     }
 
-    //check for images/videos and then upload
-    // if (files) {
-    //     const file = req.files
-    //     const fileURL = await Storage.upload(file)
-    //     //add to DB
-    //     const case_id = _case.id
-    //     let data = {
-    //         case_id,
-    //         fileURL,
-    //     }
-    //     await CaseMedia(data)
-    // }
+    if (files) {
+        const fileLocations = uploadFile(files);
+        const case_id = _case.id
+        const mediaData = fileLocations.map(file => ({
+            case_id,
+            media_url: file
+        }));
+        await CaseMedia.bulkCreate(mediaData);
+    }
     return _case;
 }
 

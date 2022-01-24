@@ -10,7 +10,7 @@ router.get('/', function (req, res) {
     res.render('admin/login', { title: 'Admin Login' });
 });
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', authenticateAdmin, async (req, res, next) => {
     try {
         await adminService.create(req.body);
         res.redirect('/admin/users');
@@ -28,7 +28,7 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
-router.get('/users', async (req, res, next) => {
+router.get('/users', authenticateAdmin, async (req, res, next) => {
     const users = await adminService.list();
     res.render('admin/users', { users });
 });
@@ -69,7 +69,7 @@ router.get('/edit-case/:id', authenticateAdmin, async (req, res, next) => {
 
 router.post('/cases', authenticateAdmin, async (req, res, next) => {
     try {
-        await caseService.save({ ...req.body, AdminId: req.session.admin.id });
+        await caseService.save({ ...req.body, AdminId: req.session.admin.id }, req.files);
         const cases = await caseService.list({ include: { model: Admin, attributes: ['fullname'] } });
         res.render('admin/cases', { cases });
     } catch (err) {
