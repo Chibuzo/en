@@ -18,9 +18,10 @@ module.exports = {
                 unique: true,
                 allowNull: false
             },
+            phone: Sequelize.STRING,
             type: Sequelize.STRING,
             password: Sequelize.STRING,
-            active: Sequelize.BOOLEAN,
+            status: Sequelize.STRING,
             createdAt: {
                 allowNull: false,
                 type: Sequelize.DATE

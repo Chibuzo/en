@@ -1,5 +1,12 @@
 
 module.exports = {
+    buildCriteria: params => {
+        const { where = {} } = params;
+        delete params.where;
+        where.deleted = false;
+        return { params, where };
+    },
+
     formatCurrency: input => {
         return parseInt(input).toLocaleString('en-US', { style: 'decimal' });
     },
@@ -10,5 +17,5 @@ module.exports = {
         return intro.substr(0, intro.lastIndexOf(' ')) + '...';
     },
 
-    formatDate: date => new Date(date).toLocaleDateString('en-GB')
+    formatDate: date => new Date(date).toLocaleDateString('fr-CA')
 }

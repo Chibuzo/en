@@ -10,25 +10,28 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.TEXT,
             allowNull: false
         },
+        location: DataTypes.STRING,
+        event_date: DataTypes.DATE,
         victim: {
             type: DataTypes.STRING
         },
         culprit: {
             type: DataTypes.STRING
         },
-        category_id: {
-            type: DataTypes.INTEGER
+        status: {
+            type: DataTypes.STRING,
+            defaultValue: 'new'
         },
-        status_id: {
-            type: DataTypes.INTEGER
-        },
-        added_by: {
-            type: DataTypes.INTEGER
+        deleted: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
         }
     });
 
     Case.associate = function (models) {
-
+        Case.belongsTo(models.Admin);
+        Case.belongsTo(models.CaseCategory);
+        Case.belongsTo(models.Agency);
     };
 
     return Case;

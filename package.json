@@ -1,9 +1,9 @@
 {
-    "name": "farm",
+    "name": "case-tracker",
     "version": "0.0.0",
     "private": true,
     "scripts": {
-        "start": "nodemon ./bin/www"
+        "start": "node ./bin/www"
     },
     "dependencies": {
         "aws-sdk": "^2.1026.0",

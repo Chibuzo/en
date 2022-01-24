@@ -1,231 +1,90 @@
-extends layout
+extend layout
 
-block styleBlock 
-    link(rel='stylesheet', href='/stylesheets/owl.carousel.min.css')
-    link(rel='stylesheet', href='/stylesheets/owl.theme.default.min.css')
+block content 
+    .section.pt-5.pb-5
+        .container
+            .row.justify-content-center.mb-5
+                .col-lg-7.text-center
+                    h2.heading Active Cases
+            .row
+                .col-lg-12
+                    .posts-slide-wrap
+                        #posts-slide.posts-slide
+                            each _case in cases
+                                - const url_path = _case.title.split(' ').join('-')
+                                .item
+                                    .post-entry.d-lg-flex
+                                        .me-lg-5.thumbnail.mb-4.mb-lg-0
+                                            a(href=`/cases/${_case.id}/${url_path}`)
+                                                img.img-fluid(src='images/xpost_lg_2.jpg.pagespeed.ic.t0aph6N0mC.webp' alt='Image' data-pagespeed-url-hash='1399666466' onload='pagespeed.CriticalImages.checkImageForCriticality(this);')
+                                        .content.align-self-center
+                                            .post-meta.mb-3
+                                                a.category(href='#')= _case.Agency.abbr
+                                                | , 
+                                                a.category(href='#')= _case.CaseCategory.name
+                                                |  &mdash;
+                                                span.date= view.formatDate(_case.createdAt)
+                                            h2.heading
+                                                a(href=`/cases/${_case.id}/${url_path}`)= _case.title
+                                            p= view.postIntro(_case.description, 600)
+                                            a.post-author.d-flex.align-items-center(href='#')
+                                                .author-pic
+                                                    i.fa.fa-calendar.fa-2x
+                                                .text
+                                                    strong Posted On:
+                                                    span= view.formatDate(_case.createdAt)
 
-block content
-    div.container-fluid.feature
-        div.row.feature-text
-            div.col.text-center
-                h1.mb-4.text-white A DIGITAL PLATFORM FOR AGRIBUSINESS
-                a.btn.btn-success.btn-lg(href="/signup") SIGN UP
-        div.row
-            div.col(style="padding: 0")
-                video(width="100%", autoPlay muted loop)
-                    source(src="images/green_vid.mp4", type="video/mp4")
-        .row 
-            .col            
-                .container
-                    .row 
-                        div.col.py-5.text-center
-                            h2.mb-5 OVERVIEW 
-                            p Invest”N”Farm is an innovative digital agritech crowdfunding platform focused on arable and pastoral farming 
-                                | and other operations in Nigeria. We are registered in Nigeria as Invest”N”Farm Business Resources Limited 
-                                | (RC. 1791394). We believe strongly that agriculture is one of the most secured and profitable business to 
-                                | invest in as we provide opportunities to everyone to engage in Agribusiness anytime and on the go by investing 
-                                | in farms and trading commodities. We make it very simple for our investors in Nigeria and all over the world to 
-                                | invest with as little as possible and watch their investment grow. Our investors do not need to own a farm or be 
-                                | experienced in catering for the animals or crops. We take the burden off our investors and let them sit back and 
-                                | watch their money grow. Our investments are 100% safe and risk free as we are fully insured by NAIC.
+    .sector.my-5
+        .container 
+            .row.justify-content-center
+                .col-lg-9
+                    h2.mb-4 #[strong Recent Cases]
 
-    .container-fluid.how-it-works.mb-5
-        .row
-            .col
-                h2.text-center HOW IT WORKS 
-                .row.text-center 
-                    .col 
-                        div.caption SIGN UP
-                        div.triangle
-                        div.inner-text Sign up for a complimentary Invest”N”Farm account to again full access though profit farmland investment opportunities in our user friendly portal.
-                    .col 
-                        div.caption INVEST
-                        div.triangle
-                        div.inner-text Determine what best models fits your investment portfolio and invest Al opportunities have been carefully selected and offer high return possibilities.
-                    .col 
-                        div.caption TRACK
-                        div.triangle
-                        div.inner-text Congratulations you’re an investor! Invest”N”Farm manages all aspects fo the farmland, from planting to harvesting to selling while you simple track your farm’s progress online.
-                    .col   
-                        div.caption RECEIVE
-                        div.triangle
-                        div.inner-text Profits from crop or animal sales are distributed to investors after they are harvested and sold. At the end of the holding period, investors will receive their share from the sale of the the land.       
-        .row
-            .col.text-center.my-5
-                a.btn.btn-success.btn-lg.mt-3(href="/signup") Sign Up
+                    each recent in recentCases
+                        - const url_path = recent.title.split(' ').join('-')
+                        .post-entry.d-md-flex.small-horizontal.mb-5
+                            .me-md-5.thumbnail.mb-3.mb-md-0
+                                img.img-fluid(src='/images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp' alt='Image' data-pagespeed-url-hash='3151298507' onload='pagespeed.CriticalImages.checkImageForCriticality(this);')
+                            .content
+                                .post-meta.mb-3
+                                    a.category(href='#')= recent.Agency.abbr
+                                    | , 
+                                    a.category(href='#')= recent.CaseCategory.name
+                                    |  &mdash;
+                                    span.date July 2, 2020
+                                h2.heading
+                                    a(href=`/cases/${recent.id}/${url_path}`)= recent.title
+                                p= view.postIntro(recent.description, 200)
+                                a.post-author.d-flex.align-items-center(href='#')
+                                    .author-pic
+                                        i.fa.fa-calendar.fa-2x
+                                    .text
+                                        strong Posted On:
+                                        span= view.formatDate(recent.createdAt)
 
-    .container-fluid.mb-5
-        .row
-            .col.text-center
-                h2.mb-5 WHY INVEST"N"FARM?
-        .row.gx-5 
-            .col-md-3.col-sm-12.col-xs-12 
-                .why-invest.text-center.mt-5
-                    h3 YOU
-                    p   
-                        i.fa.fa.lg.fa-caret-right &nbsp; <span>INVEST</span>
-            .col-md-6.col-sm-12.col-xs-12
-                .why-invest 
-                    h3.text-center.mt-3 WE
-                    .row 
-                        .col.col-xs-12
-                        .col-7.col-dm-12.col-xs-12
-                            p   
-                                i.fa.fa.lg.fa-caret-right &nbsp; <span>FARM</span>
-                            p    
-                                i.fa.fa.lg.fa-caret-right &nbsp; <span>PROCESS</span>
-                            p    
-                                i.fa.fa.lg.fa-caret-right &nbsp; <span>SELL</span>
-            .col-md-3.col-sm-12.col-xs-12
-                .why-invest.text-center.mt-md-5 
-                    h3 YOU
-                    p   
-                        i.fa.fa.lg.fa-caret-right &nbsp; <span>PROFIT</span>
 
-    .container-fluid.about-features.py-4 
-        .row.mb-5.mt-3.pb-4
-            .col.text-center
-                .button-left.mr-1#show-slide1
-            .col
-                .button-right.ml-1#show-slide2
-        .container#slide1   
-            .row       
-                .col-md-6.col-sm-12.col-xs-12 
-                    h5 ADD VALUE TO HUMANITY
-                    p Millions of people are starving in Africa and the world at large because the demand for foods has overshot the supply. Invest”N”Farm is an AgriTech product that bridges the gap between the demand for food and its supply by partnering with farmers and landowners in Africa to create more farming opportunities. As a result, job opportunities are created, food production is increased and Return On Investment (ROI) is certain where supply is at par with demand.
-                .col-md-6.col-sm-12.col-xs-12                      
-                    h5 EASE OF USE
-                    P As an AgriTech product, Invest”N”Farm makes it extremely easy for you to venture into the agricultural business terrain by using your mobile phone or PC. Being a digital agricultural investor opens you up to tremendous opportunities on a global scale all from the comfort of your home and digital devices.
-             
-                .col-md-6.col-sm-12.col-xs-12 
-                    h5 DIVERSIFIED PORTFOLIO
-                    p Invest”N”Farm does not limit your investment opportunities to only a few products. Our list of investment portfolios includes all cash crops and livestock. Moreover, our agricultural settlements are not limited to only one geographical area. We have plantations in different parts of the continent which creates more global opportunities to have a diversified portfolio in the Agricultural marketplace.
-                .col-md-6.col-sm-12.col-xs-12 
-                    h5 START WITH LITTLE FUNDS
-                    p Invest”N”Farm has no minimum investment amount to get started. Start with what you have and watch your investment grow. All you have to do is fund your wallet and choose from any of our investment portfolios.    
-        .container.d-none#slide2      
-            .row   
-                .col-md-6.col-sm-12.col-xs-12 
-                    h5 WITHDRAW FROM YOUR WALLET
-                    p Funding your wallet does not mean that you cannot withdraw from your wallet at your will. Your wallet with us only provides a temporary place where you can keep funds to use for investment in any of our investment portfolios.    
-                .col-md-6.col-sm-12.col-xs-12
-                    h5 ANALYTICAL DASHBOARD
-                    p Funding your wallet does not mean that you cannot withdraw from your wallet at your will. Your wallet with us only provides a temporary place where you can keep funds to use for investment in any of our investment portfolios.
-                .col-md-6.col-sm-12.col-xs-12                       
-                    h5 INVESTMENT CALCULATOR
-                    P Make informed choices about investment opportunities with Invest”N”Farm by using the in-built Return On Investment (ROI) Calculator.   
-                .col-md-6.col-sm-12.col-xs-12 
-                    h5 SECURE & SAFE
-                    p Invest”N”Farm runs on a Secure Socket Layer (SSL) that ensures that all messages transmitted from the site are encrypted. For mobile payments, Invest”N”Farm has integrated the Flutterwave payment gateway, which is highly secure. With Invest”N”Farm, your funds stay safe as our farms are insured and secured as a strategy for risk management.
-
-    .container-fluid.mt-5
-        .row    
-            .col
-                h2.text-center.mb-5 ALL OUR PROJECTS
-        .row.mb-5.px-4#add-slide 
-            each inv in investments
-                - const url_path = inv.investment_name.split(' ').join('-')
-                div.col-md-3.col-xs-12.mt-2.text-center 
-                    strong= inv.investment_name
-                    div.team-photo
-                        img(src="./images/coming-soon-placeholder.png")
-                        div.team-details 
-                            a(href=`/investment/${inv.id}/${url_path}`) Read more                
-
-    .container-fluid.testimony.py-5 
-        .row 
-            .col-1
-            .col-md-4.col-sm-12.col-xs-12
-                h2.mt-5 “Invest “N” Farm has earned me high yielding profits in such a little while, I am glad that I have invested in this platform.” 
-                h5.mt-5 Sandra, Hair Dresser, USA   
-
-    .container-fluid.faq
-        .row 
-            .col-md-6.col-sm-12.col-xs-12
-                img(src="./images/FAQ.png" style="opacity: 0.3; margin-top: 183px; width: 100%")
-            .col-md-5.col-sm-12.col-xs-12.py-5
-                h4.mt-5 Questions?   
-                
-                .accordion#accordionExample
-                    .accordion-item
-                        h2#headingOne.accordion-header
-                            button.accordion-button(type='button' data-bs-toggle='collapse' data-bs-target='#collapseOne' aria-expanded=true aria-controls='collapseOne')
-                                | How do I start Investing?
-                        #collapseOne.accordion-collapse.collapse.show(aria-labelledby='headingOne' data-bs-parent='#accordionExample')
-                            .accordion-body First sign up, then fund your virtual wallet and choose any of our investment portfolios
-                    .accordion-item
-                        h2#headingTwo.accordion-header
-                            button.accordion-button.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#collapseTwo' aria-expanded=false aria-controls='collapseTwo')
-                                | How many times can I invest?
-                        #collapseTwo.accordion-collapse.collapse(aria-labelledby='headingTwo' data-bs-parent='#accordionExample')
-                            .accordion-body As many times as you wish
-                    .accordion-item
-                        h2#headingThree.accordion-header
-                            button.accordion-button.collapsed(type='button' data-bs-toggle='collapse' data-bs-target='#collapseThree' aria-expanded=false aria-controls='collapseThree')
-                                | When do I earn ROI?
-                        #collapseThree.accordion-collapse.collapse(aria-labelledby='headingThree' data-bs-parent='#accordionExample')
-                            .accordion-body Every investment portfolio has it's own tenure
-            .col-1  
-
-block scriptBlock
-    script(src="/javascripts/jquery.min.js")
-    script(src="/javascripts/owl.carousel.min.js")  
-
-    script. 
-        const slide1 = document.querySelector('#slide1');
-        const slide2 = document.querySelector('#slide2');
-
-        document.querySelector('#show-slide2').addEventListener('click', function() {
-            // hide slide1
-            slide1.style.animate = "fade-out 0.5s ease-in";
-            slide1.style.opacity = "0";
-            slide1.classList.add('d-none');
-
-            // show slide2 
-            slide2.classList.remove('d-none');
-            slide2.style.animate = "fade-in 0.5s ease-in";
-            slide2.style.opacity = "1";
-            this.style.borderLeftColor = "#fff";
-            document.querySelector('#show-slide1').style.borderRightColor = "#329337";
-        });
-
-        document.querySelector('#show-slide1').addEventListener('click', function() {
-            // hide slide2
-            slide2.style.animate = "fade-out 0.5s ease-in";
-            slide2.style.opacity = "0";
-            slide2.classList.add('d-none');
-
-            // show slide2
-            slide1.classList.remove('d-none');
-            slide1.style.animate = "fade-in 0.5s ease-in";
-            slide1.style.opacity = "1";
-            this.style.borderRightColor = "#fff";
-            document.querySelector('#show-slide2').style.borderLeftColor = "#329337";
-        });
-
-        if (window.innerWidth <= 576) {
-            document.querySelector('#add-slide').classList.add('owl-carousel');
-        }
-
-        $(document).ready(function(){
-            $('.owl-carousel').owlCarousel({
-                loop:true,
-                margin:10,
-                responsiveClass:true,
-                responsive:{
-                    0:{
-                        items:1,
-                        nav:true
-                    },
-                    600:{
-                        items:3,
-                        nav:false
-                    },
-                    1000:{
-                        items:5,
-                        nav:false,
-                        loop:false
-                    }
-                }
-            })
-        });
+    //- .section
+    //-     .container
+    //-         .row.g-5
+    //-             .col-lg-4
+    //-                 .post-entry.d-block.small-post-entry-v
+    //-                     .thumbnail
+    //-                         a(href='single.html')
+    //-                             img.img-fluid(src='images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp' alt='Image' data-pagespeed-url-hash='3151298507' onload='pagespeed.CriticalImages.checkImageForCriticality(this);')
+    //-                     .content
+    //-                         .post-meta.mb-1
+    //-                             a.category(href='#') Business
+    //-                             | , 
+    //-                             a.category(href='#') Travel
+    //-                             |  &mdash;
+    //-                             span.date July 2, 2020
+    //-                         h2.heading.mb-3
+    //-                             a(href='single.html') Your most unhappy customers are your greatest source of learning.
+    //-                         p
+    //-                             | Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
+    //-                         a.post-author.d-flex.align-items-center(href='#')
+    //-                             .author-pic
+    //-                                 img(src='images/xperson_1.jpg.pagespeed.ic.Zebptmx_f8.webp' alt='Image' data-pagespeed-url-hash='1813383360' onload='pagespeed.CriticalImages.checkImageForCriticality(this);')
+    //-                             .text
+    //-                                 strong Sergy Campbell
+    //-                                 span CEO and Founder

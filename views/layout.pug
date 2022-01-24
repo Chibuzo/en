@@ -1,53 +1,132 @@
 doctype html
-html
-  head
+head
     meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1')
-    title InvestNFarm - #{title}
-    link(rel='stylesheet', href='/stylesheets/bootstrap.min.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/fonts.css')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    link(rel='preconnect' href='https://fonts.gstatic.com')
+    link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap' rel='stylesheet')
+    //link(rel='stylesheet' href='A.fonts,,_icomoon,,_style.css+fonts,,_flaticon,,_font,,_flaticon.css+css,,_tiny-slider.css+css,,_glightbox.min.css+css,,_aos.css+css,,_style.css,Mcc.CgyIJPOVwv.css.pagespeed.cf.0oKNermVIz.css')
+    link(rel='stylesheet' href='/css/fontawesome-min.css')
+    link(href='/css/style.css' rel="stylesheet")
     block styleBlock
-  body
-    header
-        nav(class=["navbar navbar-expand-lg navbar-light"])
-            div(class="container-fluid")
-                a.navbar-brand(href="/") 
-                    img(src="/images/logo.png", width="130px")
-                button.navbar-toggler(type="button", data-bs-toggle="collapse", data-bs-target="#navbarNav"
-                    aria-controls="navbarNav", aria-expanded=false, aria-label="Toggle navigation")
-                    span.navbar-toggler-icon
-                
-                div(class=["collapse navbar-collapse float-right"])#navbarNav
-                    ul.navbar-nav.ms-auto
-                        li.nav-item
-                            a.nav-link.mx-3(aria-current="page" href="/") Home
-                        li.nav-item
-                            a.nav-link.mx-3(href="#/about") About
-                        li.nav-item
-                            a.nav-link.mx-3(href="#") Investment Guide
-                        li.nav-item
-                            a.nav-link.mx-3(href="#") Services
-                        li.nav-item
-                            a.nav-link.mx-3(href="#/how-it-works.html") How it Works
-                        li.nav-item
-                            a.nav-link.mx-3(href="#") Our Farms
-                        li.nav-item
-                            a.nav-link.mx-3(href="#") Contact
-                        li.nav-item
-                            a.btn.btn-success.mx-3(href="/login") Login
-    block content
+    title MagDesign &mdash; Free Bootstrap 5 Website Template by Colorlib
+    script(type='text/javascript' src='https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=JUFyHUdTl2HRn34LlvRfYNrKbV_aPxVk9OxFcOX4dRbH4rXGyFi6R7Y70lab7GXvVhaxCSmKXTvTzDfYLqzgQ24H9jhUB7OSHIofrsNX5j8' charset='UTF-8')
+    script.
+        (function(w,d){!function(e,t,r,a,s){e[r]=e[r]||{},e[r].executed=[],e.zaraz={deferred:[]};var n=t.getElementsByTagName("title")[0];e[r].c=t.cookie,n&&(e[r].t=t.getElementsByTagName("title")[0].text),e[r].w=e.screen.width,e[r].h=e.screen.height,e[r].j=e.innerHeight,e[r].e=e.innerWidth,e[r].l=e.location.href,e[r].r=t.referrer,e[r].k=e.screen.colorDepth,e[r].n=t.characterSet,e[r].o=(new Date).getTimezoneOffset(),//
+        e[s]=e[s]||[],e.zaraz._preTrack=[],e.zaraz.track=(t,r)=>e.zaraz._preTrack.push([t,r]),e[s].push({"zaraz.start":(new Date).getTime()});var i=t.getElementsByTagName(a)[0],o=t.createElement(a);o.defer=!0,o.src="/cdn-cgi/zaraz/s.js?"+new URLSearchParams(e[r]).toString(),i.parentNode.insertBefore(o,i)}(w,d,"zarazData","script","dataLayer");})(window,document);
+.site-mobile-menu.site-navbar-target
+    .site-mobile-menu-header
+        .site-mobile-menu-close
+            span.icofont-close.js-menu-toggle
+    .site-mobile-menu-body
+nav.site-nav
+    .container
+        .site-navigation
+            .row
+                .col-md-6.text-center.order-1.order-md-2.mb-3.mb-md-0
+                    a.logo.m-0(href='/') PoliceTrackr
+                .col-md-3.order-3.order-md-1
+                    form.search-form(action='#')
+                        i.icon-sh.fa.fa-search
+                        input.form-control(type='search' placeholder='Search...')
+                .col-md-3.text-end.order-2.order-md-3.mb-3.mb-md-0
+                    .d-flex
+                        ul.list-unstyled.social.me-auto
+                            li
+                                a(href='#')
+                                    i.fa.fa-twitter
+                            li
+                                a(href='#')
+                                    i.fa.fa-facebook
+                        a.d-none.burger.ms-auto.float-end.site-menu-toggle.js-menu-toggle.d-inline-block(href='#' data-toggle='collapse' data-target='#main-navbar')
+                            span
+            ul.js-clone-nav.d-none.d-lg-inline-none.text-start.site-menu.float-end
+                li.active
+                    a(href='/') Home
+                li.has-children
+                    a(href='categories.html') Categories
+                    ul.dropdown
+                        li
+                            a(href='#') Travel
+                        li
+                            a(href='#') Food
+                        li
+                            a(href='#') Technology
+                        li
+                            a(href='#') Business
+                        li.has-children
+                            a(href='#') Dropdown
+                            ul.dropdown
+                                li
+                                    a(href='#') Sub Menu One
+                                li
+                                    a(href='#') Sub Menu Two
+                                li
+                                    a(href='#') Sub Menu Three
+                li
+                    a(href='#') Travel
+                li
+                    a(href='#') Food
+                li
+                    a(href='#') Technology
+                li
+                    a(href='#') Business
 
-    footer.primary-bg.py-4
-        div.container
-            .row.text-white
-                div.col
-                    p 497 Evergreen Rd. Roseville, CA 95673<br>+44 345 678 903
-                div.col.text-end
-                    i.fab.fa-instagram
-                    i.fab.fa-twitter.mx-3
-                    i.fab.fa-facebook-f
+block content
 
-    script(src="https://kit.fontawesome.com/8f93d1598d.js")
-    script(src="/javascripts/bootstrap.bundle.min.js")  
-    block scriptBlock              
+
+.py-5.bg-light.mx-md-3.sec-subscribe
+    .container
+        .row
+            .col-lg-12
+                h2.h4.fw-bold Subscribe to newsletter
+        form.row(action='')
+            .col-md-8
+                .mb-3.mb-md-0
+                    input.form-control(type='email' placeholder='Enter your email')
+            .col-md-4.d-grid
+                input.btn.btn-primary(type='submit' value='Subscribe')
+.site-footer
+    .container
+        .row.justify-content-center.copyright
+            .col-lg-7.text-center
+                .widget
+                    ul.social.list-unstyled
+                        li(style="margin-right: 6px")
+                            a(href='#')
+                                span.fa.fa-facebook
+                        li
+                            a(href='#')
+                                span.fa.fa-twitter
+                .widget
+                    p
+                        | Copyright &copy;
+                        script.
+                            document.write(new Date().getFullYear());
+                        |  All rights reserved 
+                    .d-block
+                        a.m-2(href='#') Terms &amp; Conditions
+                        | /
+                        a.m-2(href='#') Privacy Policy
+    #overlayer
+    .loader
+        .spinner-border(role='status')
+            span.visually-hidden Loading...
+    script(src='/js/bootstrap-bundle.min.js')
+    script(src='/js/tiny-slider.js')
+    script(src='/js/theme.js')
+    script.
+        eval(mod_pagespeed_KpCH1a$C_m);
+    script.
+        eval(mod_pagespeed_Ej3jj9tqUo);
+    script.
+        eval(mod_pagespeed_Pkx$Oz4Gi9);
+    script.
+        eval(mod_pagespeed_9lpIcAXJZV);
+    script.
+        eval(mod_pagespeed_GIrE68D1a2);
+//-   script(async='' src='https://www.googletagmanager.com/gtag/js?id=UA-23581568-13')
+//-   script.
+//-     window.dataLayer = window.dataLayer || [];
+//-     function gtag(){dataLayer.push(arguments);}
+//-     gtag('js', new Date());
+//-     gtag('config', 'UA-23581568-13');

@@ -1,43 +1,81 @@
-extends layout 
+doctype html
+head
+    meta(charset='utf-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1')
+    meta(name='description' content='')
+    title CaseTrackr
+    // Bootstrap core CSS
+    link(href='/css/bootstrap.min.css' rel='stylesheet')
+    meta(name='theme-color' content='#7952b3')
+    script(type='text/javascript' src='https://gc.kis.v2.scr.kaspersky-labs.com/FD126C42-EBFA-4E12-B309-BB3FDD723AC1/main.js?attr=IytCfCI-lQn8XokLf4CfjntgrNXqXthpuN2U8fdICKc5cWNISeZeJAl99hibHnl8vymhsagm7jJY7w0q0xDBc0CxEG_ChfJ9RH14XxOx5no' charset='UTF-8')
+    style.
+        html,
+        body {
+            height: 100%;
+        }
 
-block content
-    div.container-fluid.primary-bg.text-white
-        div.row
-            div.col.text-center
-                h1.pt-4 Login to Your Account
-                p Choose from over 20 investment portfolios with high ROI
-                p.title 
-                    a(href="/signup") New Here? Sign up
-        div.row 
-            div.col
-                .container
-                    .row 
-                        .col-md-6.col-sm-12.col-xs-12.mt-4
-                            form(action="/login", method="post")
-                                div.row
-                                    div.col.mb-3.pe-md-4.ps-md-5
-                                        input.form-control.form-control-lg(type="email", name="email", placeholder="Email" aria-label="Email")
-                                div.row
-                                    div.col.mb-3.pe-md-4.ps-md-5    
-                                        input.form-control.form-control-lg(type="password", name="password", placeholder="Password", aria-label="Password", required=true)
-                                .row.gy-2
-                                    .col.d-grid.pe-md-4.ps-md-5
-                                        button.btn.btn-success.btn-lg.btn-block(type="submit") Login to Your Account  
-                        .col-md-6.col-sm-12.col-xs-12.mt-3
-                            .row.gy-3
-                                .col-md-12.mt-5.d-block.d-sm-none
-                                    h2.text-center OR
-                                .col.d-grid.pe-md-5.ps-md-4
-                                    button.btn.btn-success.btn-lg.btn-block.mt-2(type="button") Sign in With Google 
-                            .row.gy-3
-                                .col.d-grid.pe-md-5.ps-md-4
-                                    button.btn.btn-success.btn-lg.btn-block.mt-3(type="button") Sign in With Facebook 
-                            .row.gy-3
-                                .col.d-grid.pe-md-5.ps-md-4
-                                    button.btn.btn-success.btn-lg.btn-block.mt-3(type="submit") Sign in With Apple Account                  
-                    .row 
-                        .col.text-center 
-                            br/ <br>
-                            p.title 
-                                a(href="#/reset-password") Forgot Password?
-                                  
+        body {
+            display: flex;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .form-signin {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .form-signin .checkbox {
+            font-weight: 400;
+        }
+
+        .form-signin .form-floating:focus-within {
+            z-index: 2;
+        }
+
+        .form-signin input[type="email"] {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .form-signin input[type="password"] {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+main.form-signin.text-center
+    form(method="post" action="/admin/login")
+        h1.h3.mb-3.fw-normal Please sign in
+        .form-floating
+            input#floatingInput.form-control(type='email' name="email" placeholder='name@example.com')
+            label(for='floatingInput') Email address
+        .form-floating
+            input#floatingPassword.form-control(type='password' name="password" placeholder='Password')
+            label(for='floatingPassword') Password
+        .checkbox.mb-3
+            label
+                input(type='checkbox' value='remember-me')
+                |  Remember me
+        button.w-100.btn.btn-lg.btn-secondary(type='submit') Sign in
+        p.mt-5.mb-3.text-muted &copy; 
+            script.
+                document.write(new Date().getFullYear());

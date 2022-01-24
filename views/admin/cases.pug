@@ -1,0 +1,31 @@
+extend layout 
+
+block content 
+    .container 
+        .row 
+            .col
+                a.btn.btn-secondary.float-end(href="/admin/new-case") Add Case 
+        .row.mt-1
+            .col 
+                h3 Cases
+                table.table.table-striped 
+                    thead 
+                        tr 
+                            th Date Added 
+                            th Title 
+                            th Trackers 
+                            th Status 
+                            th Added By 
+                            th Action 
+                    tbody 
+                        each _case in cases
+                            tr 
+                                td= view.formatDate(_case.createdAt)
+                                td= _case.title 
+                                td 0
+                                td= _case.status
+                                td= _case.Admin && _case.Admin.fullname 
+                                td 
+                                    a(href=`/admin/edit-case/${_case.id}`) [ Edit ]
+                                    | &nbsp;  
+                                    a(href="") [ Delete ]

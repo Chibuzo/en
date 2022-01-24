@@ -1,0 +1,53 @@
+extend layout 
+
+block content 
+    .container
+        .row 
+            .col-md-12
+                a.btn.btn-secondary.btn.lg.float-end(href="/admin/cases")
+                    .fa.fa-caret-left 
+                    |  Go Back 
+        .row.justify-content-md-center 
+            .col-md-6
+                h3 New Case
+                br/
+                form(method="post" action="/admin/cases" encType="multipart/form-data")
+                    .mb-3
+                        .row 
+                            .col-md-12     
+                                label Title  
+                                input.form-control.input-lg(type="text" name="title" required)
+                    .mb-3
+                        .row 
+                            .col-md-6     
+                                label Agency Involved 
+                                select.form-control.input-lg(name="AgencyId" required) 
+                                    option(value="")| -- Select Agency --
+                                    each agency in agencies 
+                                        option(value=`${agency.id}`)= agency.name
+                            .col-md-6     
+                                label Category 
+                                select.form-control.input-lg(name="CaseCategoryId" required) 
+                                    option(value="")| -- Select Case Category --
+                                    each category in categories 
+                                        option(value=`${category.id}`)= category.name
+
+
+                    .mb-3 
+                        .row 
+                            .col-md-12 
+                                label Details
+                                textarea.form-control(name="description" rows="10")             
+                    .mb-3 
+                        .row 
+                            .col-md-12
+                                label Date of Event
+                                input.form-control(type="date" name="event_date")    
+                    .mb-3 
+                        .row 
+                            .col-md-12 
+                                label Evidences (Photos, videos, etc.) 
+                                input.form-control.input.lg(type="file" name="evidences")
+                    .mb-3.text-center 
+                        br/
+                        input.btn.btn-success.btn-lg(type="submit" value="Publish Case")

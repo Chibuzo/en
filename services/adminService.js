@@ -3,11 +3,12 @@ const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
 
-const create = async ({ fname, lname, email, password }) => {
+const create = async ({ fullname, email, phone, password }) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
     const data = {
-        fullname: `${lname} ${fname}`,
+        fullname,
         email,
+        phone,
         password: passwordHash
     };
     const newAdmin = await Admin.create(data);
@@ -17,7 +18,7 @@ const create = async ({ fname, lname, email, password }) => {
 const login = async ({ email, password }) => {
     const foundAdmin = await Admin.findOne({
         where: { email },
-        attributes: ['id', 'fullname', 'email', 'type', 'password']
+        attributes: ['id', 'fullname', 'email', 'phone', 'password']
     });
     if (!foundAdmin) throw new ErrorHandler(404, 'Email or password is incorrect');
 
@@ -30,7 +31,16 @@ const login = async ({ email, password }) => {
     return admin;
 }
 
+const list = async () => {
+    return Admin.findAll({
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }, { raw: true });
+}
+
 module.exports = {
     create,
-    login
+    login,
+    list
 }

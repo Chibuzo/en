@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     CaseCategory.associate = function (models) {
-
+        CaseCategory.hasMany(models.Case, { as: 'cases' });
     };
 
     return CaseCategory;
