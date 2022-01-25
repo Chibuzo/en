@@ -8,7 +8,7 @@ block content
                     .fa.fa-caret-left 
                     |  Go Back 
         .row.justify-content-md-center 
-            .col-md-6
+            .col-md-6.mb-5
                 h3 New Case
                 br/
                 form(method="post" action="/admin/cases" encType="multipart/form-data")
@@ -40,9 +40,15 @@ block content
                                 textarea.form-control(name="description" rows="10")             
                     .mb-3 
                         .row 
-                            .col-md-12
+                            .col-md-6
                                 label Date of Event
-                                input.form-control(type="date" name="event_date")    
+                                input.form-control(type="date" name="event_date")  
+                            .col-md-6 
+                                label Case Status 
+                                select.form-control.input-lg(name="status" required)
+                                    option(value="")| -- Select Status --
+                                    each status in case_statuses 
+                                        option(value=`${status}`)= status
                     .mb-3 
                         .row 
                             .col-md-12 

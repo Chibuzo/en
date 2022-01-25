@@ -46,10 +46,19 @@ block content
                                 textarea.form-control(name="description" rows="10")= _case.description             
                     .mb-3 
                         .row 
-                            .col-md-12
+                            .col-md-6
                                 label Date of Event
                                 input.form-control(type="date" name="event_date" value=`${view.formatDate(_case.event_date)}`)  
                                 input(type="hidden" name="id" value=`${_case.id}`)  
+                            .col-md-6 
+                                label Case Status 
+                                select.form-control.input-lg(name="status" required)
+                                    option(value="")| -- Select Status --
+                                    each status in case_statuses 
+                                        if status == _case.status
+                                            option(value=`${status}` selected)= status 
+                                        else
+                                            option(value=`${status}`)= status
                     .mb-3 
                         .row 
                             .col-md-12 

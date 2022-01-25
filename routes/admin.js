@@ -5,6 +5,8 @@ const adminService = require('../services/adminService');
 const caseService = require('../services/caseService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 
+const { caseStatuses: CASE_STATUSES } = require('../config/constants');
+
 
 router.get('/', function (req, res) {
     res.render('admin/login', { title: 'Admin Login' });
@@ -48,7 +50,7 @@ router.get('/new-case', authenticateAdmin, async (req, res, next) => {
             caseService.getCategories(),
             caseService.getAgencies()
         ]);
-        res.render('admin/new-case', { agencies, categories });
+        res.render('admin/new-case', { agencies, categories, case_statuses: CASE_STATUSES });
     } catch (err) {
         next(err);
     }
@@ -61,7 +63,7 @@ router.get('/edit-case/:id', authenticateAdmin, async (req, res, next) => {
             caseService.getCategories(),
             caseService.getAgencies()
         ]);
-        res.render('admin/edit-case', { _case, categories, agencies });
+        res.render('admin/edit-case', { _case, categories, agencies, case_statuses: CASE_STATUSES });
     } catch (err) {
         next(err);
     }
