@@ -3,7 +3,7 @@ const router = express.Router();
 const authenticate = require('../middlewares/authenticate');
 const userService = require('../services/userService');
 const caseService = require('../services/caseService');
-const { Admin, CaseCategory, Agency } = require('../models');
+const { CaseCategory, Agency, CaseMedia } = require('../models');
 
 
 router.get('/', async (req, res, next) => {
@@ -11,7 +11,8 @@ router.get('/', async (req, res, next) => {
         const cases = await caseService.list({
             include: [
                 { model: CaseCategory, attributes: ['name'] },
-                { model: Agency, attributes: ['abbr'] }
+                { model: Agency, attributes: ['abbr'] },
+                { model: CaseMedia, as: 'media', attributes: ['media_url'] }
             ]
         });
         res.render('index', { title: 'Welcome', cases, recentCases: cases });
@@ -27,8 +28,10 @@ router.get('/cases/:id/:title', async (req, res, next) => {
             where: { id: case_id },
             include: [
                 { model: CaseCategory, attributes: ['name'] },
-                { model: Agency, attributes: ['abbr'] }
-            ]
+                { model: Agency, attributes: ['abbr'] },
+                { model: CaseMedia, as: 'media', attributes: ['media_url'] }
+            ],
+            nest: true
         });
         res.render('case', { _case });
     } catch (err) {

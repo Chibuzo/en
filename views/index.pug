@@ -12,11 +12,12 @@ block content
                         #posts-slide.posts-slide
                             each _case in cases
                                 - const url_path = _case.title.split(' ').join('-')
+                                - const photo = _case.media.length ? _case.media[0].media_url : 'images/police-brutality-md.jpg'
                                 .item
                                     .post-entry.d-lg-flex
                                         .me-lg-5.thumbnail.mb-4.mb-lg-0
                                             a(href=`/cases/${_case.id}/${url_path}`)
-                                                img.img-fluid(src='/images/police-brutality-md.jpg' alt='Image')
+                                                img.img-fluid(src=`/${photo}` alt='Image')
                                         .content.align-self-center
                                             .post-meta.mb-3
                                                 a.category(href='#')= _case.Agency.abbr
@@ -42,9 +43,10 @@ block content
 
                     each recent in recentCases
                         - const url_path = recent.title.split(' ').join('-')
+                        - const photo = recent.media.length ? recent.media[0].media_url : 'images/police-brutality-md.jpg'
                         .post-entry.d-md-flex.small-horizontal.mb-5
                             .me-md-5.thumbnail.mb-3.mb-md-0
-                                img.img-fluid(src='/images/police-brutality-md.jpg' alt='Image')
+                                img.img-fluid(src=`/${photo}` alt='Image')
                             .content
                                 .post-meta.mb-3
                                     a.category(href='#')= recent.Agency.abbr

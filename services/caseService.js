@@ -30,9 +30,9 @@ const save = async ({ title, description, CaseCategoryId, event_date, status = '
 
     if (files) {
         const fileLocations = uploadFile(files);
-        const case_id = _case.id
+        const CaseId = _case.id
         const mediaData = fileLocations.map(file => ({
-            case_id,
+            CaseId,
             media_url: file
         }));
         await CaseMedia.bulkCreate(mediaData);
@@ -41,8 +41,9 @@ const save = async ({ title, description, CaseCategoryId, event_date, status = '
 }
 
 const view = async criteria => {
-    const { where, params } = buildCriteria({ ...criteria, raw: true });
-    return Case.findOne({ where, ...params });
+    const { where, params } = buildCriteria({ ...criteria });
+    const _case = await Case.findOne({ where, ...params });
+    return sanitizeCase(_case);
 }
 
 const list = async criteria => {

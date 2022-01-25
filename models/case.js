@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         Case.belongsTo(models.Admin);
         Case.belongsTo(models.CaseCategory);
         Case.belongsTo(models.Agency);
+        Case.hasMany(models.CaseMedia, { as: 'media' });
     };
 
     return Case;

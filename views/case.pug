@@ -10,7 +10,8 @@ block content
                     span.date.d-block.text-center.small.text-uppercase.text-black-50.mb-4 #{view.formatDate(_case.event_date)}
                     h2.heading.mb-3.text-center #{_case.title}
 
-                    img.img-fluid.rounded.mb-4(src='/images/police-brutality-md.jpg' alt='Image')
+                    - const photo = _case.media.length ? _case.media[0].media_url : 'images/police-brutality-md.jpg'
+                    img.img-fluid.rounded.mb-4(src=`/${photo}` alt='Image')
                     p.text-start(style="white-space: pre-wrap") #{_case.description}
 
                     .row.mt-5.pt-5.border-top.text-start
