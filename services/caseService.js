@@ -70,6 +70,10 @@ const getAgencies = async () => {
     return agencies.map(agency => ({ ...agency.toJSON() }));
 }
 
+const deleteCase = async id => {
+    return Case.update({ deleted: true }, { where: { id } });
+}
+
 const sanitizeCase = _case => {
     return { ..._case.toJSON() };
 }
@@ -80,6 +84,7 @@ module.exports = {
     save,
     list,
     view,
+    deleteCase,
     getCategories,
     getAgencies
 }

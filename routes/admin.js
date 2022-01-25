@@ -79,5 +79,14 @@ router.post('/cases', authenticateAdmin, async (req, res, next) => {
     }
 });
 
+router.delete('/delete-case/:id', authenticateAdmin, async (req, res, next) => {
+    try {
+        await caseService.deleteCase(req.params.id);
+        res.status(200).json({ status: true });
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;

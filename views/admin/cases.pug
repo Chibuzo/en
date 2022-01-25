@@ -28,4 +28,20 @@ block content
                                 td 
                                     a(href=`/admin/edit-case/${_case.id}`) [ Edit ]
                                     | &nbsp;  
-                                    a(href="") [ Delete ]
+                                    a.delete(href="#" onClick=`deleteCase(${_case.id}, this)`) [ Delete ]
+
+block scriptBlock 
+    script.  
+        function deleteCase(id, el) {
+            if (confirm("Are you sure you want to delete this case")) {
+                fetch('/admin/delete-case/' + id, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status === true) {
+                        el.closest('tr').remove();
+                    }
+                });
+            }
+        }                            
