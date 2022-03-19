@@ -13,6 +13,8 @@ block content
                         tr 
                             th Date Added 
                             th Title 
+                            th Location 
+                            th Gender/Age
                             th Trackers 
                             th Status 
                             th Added By 
@@ -22,13 +24,17 @@ block content
                             tr 
                                 td= view.formatDate(_case.createdAt)
                                 td= _case.title 
+                                td= _case.location
+                                td.text-center #{_case.gender} / #{_case.age}
                                 td 0
                                 td= _case.status
                                 td= _case.Admin && _case.Admin.fullname 
-                                td 
-                                    a(href=`/admin/edit-case/${_case.id}`) [ Edit ]
-                                    | &nbsp;  
-                                    a.delete(href="#" onClick=`deleteCase(${_case.id}, this)`) [ Delete ]
+                                td.text-center 
+                                    a(href=`/admin/edit-case/${_case.id}` title="Edit Case" style="margin-right: 9px")
+                                        i.fa.fa-pencil.fa-lg
+
+                                    a.delete(href="#" onClick=`deleteCase(${_case.id}, this)` title="Delete Case")
+                                        i.fa.fa-trash.fa-lg
 
 block scriptBlock 
     script.  

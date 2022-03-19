@@ -6,7 +6,7 @@ const { buildCriteria } = require('../services/UtillityService');
 
 
 
-const save = async ({ title, description, CaseCategoryId, event_date, status = 'new', AdminId, AgencyId, id }, files) => {
+const save = async ({ title, description, CaseCategoryId, event_date, status = 'new', gender, age, location, news_link, AdminId, AgencyId, id }, files) => {
     if (!title) throw new ErrorHandler(400, 'A title or subject is required');
     if (!description) throw new ErrorHandler(400, 'A description is required');
     if (!CaseCategoryId) throw new ErrorHandler(400, 'This case must be assigned to a category');
@@ -14,8 +14,12 @@ const save = async ({ title, description, CaseCategoryId, event_date, status = '
     const data = {
         title,
         description,
+        gender,
+        age,
+        location,
         CaseCategoryId,
         event_date,
+        news_link,
         status,
         AdminId,
         AgencyId

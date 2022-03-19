@@ -11,9 +11,18 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         location: DataTypes.STRING,
+        news_link: {
+            type: DataTypes.STRING
+        },
         event_date: DataTypes.DATE,
         victim: {
             type: DataTypes.STRING
+        },
+        gender: {
+            type: DataTypes.STRING
+        },
+        age: {
+            type: DataTypes.INTEGER
         },
         culprit: {
             type: DataTypes.STRING
@@ -26,6 +35,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }
+    }, {
+        indexes: [
+            { type: 'FULLTEXT', name: 'search_idx', fields: ['title', 'description'] }
+        ]
     });
 
     Case.associate = function (models) {

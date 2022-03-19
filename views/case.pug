@@ -14,6 +14,10 @@ block content
                     img.img-fluid.rounded.mb-4(src=`/${photo}` alt='Image')
                     p.text-start(style="white-space: pre-wrap") #{_case.description}
 
+                    if _case.news_link
+                        p #[strong News link:] 
+                            a(href=`${_case.news_link}` target="_blank")= _case.news_link
+
                     .row.mt-5.pt-5.border-top.text-start
                         .col-12
                             span.fw-bold.text-black.small.mb-1 Share

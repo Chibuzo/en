@@ -31,7 +31,17 @@ block content
                                     option(value="")| -- Select Case Category --
                                     each category in categories 
                                         option(value=`${category.id}`)= category.name
-
+                    .mb-3 
+                        .row 
+                            .col-md-6
+                                label Victim's Gender
+                                select.form-control.input-lg(name="gender")   
+                                    option(value="") -- Select Gender --
+                                    option(value="Female") Female 
+                                    option(value="Male") Male
+                            .col-md-6 
+                                label Victim's Age 
+                                input.form-control(type="text" name="age")
 
                     .mb-3 
                         .row 
@@ -42,13 +52,23 @@ block content
                         .row 
                             .col-md-6
                                 label Date of Event
-                                input.form-control(type="date" name="event_date")  
+                                input.form-control(type="date" name="event_date" required)  
                             .col-md-6 
                                 label Case Status 
                                 select.form-control.input-lg(name="status" required)
-                                    option(value="")| -- Select Status --
+                                    option(value="") -- Select Status --
                                     each status in case_statuses 
                                         option(value=`${status}`)= status
+                    .mb-3 
+                        .row 
+                            .col-md-12      
+                                label Event Location 
+                                input.form-control(type="text" name="location" placeholder="Eg. Lagos, Festac town" required)
+                    .mb-3 
+                        .row 
+                            .col-md-12 
+                                label Media/news link
+                                input.form-control.input-lg(type="text" name="news_link")
                     .mb-3 
                         .row 
                             .col-md-12 
