@@ -1,4 +1,4 @@
-const { Case, CaseCategory, CaseMedia, Agency } = require('../models');
+const { Case, CaseCategory, CaseMedia, Agency, Sequelize } = require('../models');
 const { uploadFile } = require('../helpers/fileUpload');
 const { ErrorHandler } = require('../helpers/errorHandler');
 // const Storage = require('../aws/awsService');
@@ -64,6 +64,19 @@ const list = async criteria => {
     return cases.map(_case => sanitizeCase(_case));
 }
 
+const search = async keywords => {
+    const cases = await Case.findAll({
+        where: Sequelize.literal(`MATCH (title, description) AGAINST ('${keywords}')`),
+        include: [
+            { model: CaseCategory, attributes: ['name'] },
+            { model: Agency, attributes: ['abbr'] },
+            { model: CaseMedia, as: 'media', attributes: ['media_url'] }
+        ]
+    });
+
+    return cases.map(_case => sanitizeCase(_case));
+}
+
 const getCategories = async () => {
     const categories = await CaseCategory.findAll({});
     return categories.map(cateogry => ({ ...cateogry.toJSON() }));
@@ -88,6 +101,7 @@ module.exports = {
     save,
     list,
     view,
+    search,
     deleteCase,
     getCategories,
     getAgencies

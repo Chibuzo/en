@@ -53,7 +53,7 @@ block content
                                     | , 
                                     a.category(href='#')= recent.CaseCategory.name
                                     |  &mdash;
-                                    span.date July 2, 2020
+                                    span.date= view.formatDate(recent.event_date)
                                 h2.heading
                                     a(href=`/cases/${recent.id}/${url_path}`)= recent.title
                                 p= view.postIntro(recent.description, 200)

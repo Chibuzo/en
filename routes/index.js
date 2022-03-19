@@ -65,5 +65,16 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
+router.get('/search', async (req, res, next) => {
+    try {
+        const { keywords } = req.query;
+        const cases = await caseService.search(keywords);
+        console.log({ cases })
+        res.render('search', { title: 'Search result', cases });
+    } catch (err) {
+        next(err);
+    }
+});
+
 
 module.exports = router;

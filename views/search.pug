@@ -1,0 +1,34 @@
+extend layout
+
+block content 
+
+    .sector.my-5
+        .container 
+            .row.justify-content-center
+                .col-lg-9
+                    h2.mb-4 #[strong Search Result]
+
+                    each recent in cases
+                        - const url_path = recent.title.split(' ').join('-')
+                        - const photo = recent.media.length ? recent.media[0].media_url : 'images/police-brutality-md.jpg'
+                        .post-entry.d-md-flex.small-horizontal.mb-5
+                            .me-md-5.thumbnail.mb-3.mb-md-0
+                                img.img-fluid(src=`/${photo}` alt='Image')
+                            .content
+                                .post-meta.mb-3
+                                    a.category(href='#')= recent.Agency.abbr
+                                    | , 
+                                    a.category(href='#')= recent.CaseCategory.name
+                                    |  &mdash;
+                                    span.date= view.formatDate(recent.event_date)
+                                h2.heading
+                                    a(href=`/cases/${recent.id}/${url_path}`)= recent.title
+                                p= view.postIntro(recent.description, 200)
+                                a.post-author.d-flex.align-items-center(href='#')
+                                    .author-pic
+                                        i.fa.fa-calendar.fa-2x
+                                    .text
+                                        strong Posted On:
+                                        span= view.formatDate(recent.createdAt)
+
+
