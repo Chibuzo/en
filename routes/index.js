@@ -39,22 +39,11 @@ router.get('/cases/:id/:title', async (req, res, next) => {
     }
 });
 
-router.get('/signup', (req, res) => {
-    res.render('signup', { title: 'Sign Up' });
-});
 
 router.get('/login', (req, res) => {
     res.render('login', { title: 'Login' });
 });
 
-router.post('/signup', async (req, res, next) => {
-    try {
-        const newUser = await userService.create(req.body);
-        res.render('signup', { title: 'Sign Up', newUser });
-    } catch (err) {
-        next(err);
-    }
-});
 
 router.post('/login', async (req, res, next) => {
     try {

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
         abbr: {
             type: DataTypes.STRING
         }
-    });
+    }, { sequelize, timestamps: false });
 
     Agency.associate = function (models) {
         Agency.hasMany(models.Case, { as: 'cases' });

@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         }
-    });
+    }, { sequelize, timestamps: false });
 
     CaseCategory.associate = function (models) {
         CaseCategory.hasMany(models.Case, { as: 'cases' });

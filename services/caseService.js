@@ -78,12 +78,12 @@ const search = async keywords => {
 }
 
 const getCategories = async () => {
-    const categories = await CaseCategory.findAll({});
+    const categories = await CaseCategory.findAll({ attributes: ['id', 'name'] });
     return categories.map(cateogry => ({ ...cateogry.toJSON() }));
 }
 
 const getAgencies = async () => {
-    const agencies = await Agency.findAll({});
+    const agencies = await Agency.findAll({ attributes: ['id', 'name', 'abbr'] });
     return agencies.map(agency => ({ ...agency.toJSON() }));
 }
 
