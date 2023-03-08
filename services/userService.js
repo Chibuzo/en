@@ -1,49 +1,73 @@
 const User = require('../models').User;
-const emailService = require('../services/emailService');
 const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 const { ErrorHandler } = require('../helpers/errorHandler');
+const { AGENT_LEVEL } = require('../config/constants');
+const { State, Lg, Ward, PollingUnit } = require('../models');
 
-const create = async ({ fname, lname, email, phone, country, gender, password }) => {
-    if (!fname || !lname) throw new ErrorHandler(400, 'Firstname and lastname are required');
-    if (!email) throw new ErrorHandler(400, 'Email is required');
-    if (!phone) throw new ErrorHandler(400, 'Phone number is required');
-    if (!country) throw new ErrorHandler(400, 'Country is required');
-    if (!password) throw new ErrorHandler(400, 'Password is required');
+const fetchUserData = async ({ role, lg_id, ward_id, pu_id }) => {
+    let lg, ward, agentData = {};
 
-    const passwordHash = await bcrypt.hash(password, saltRounds);
-    const data = {
-        fullname: `${lname} ${fname}`,
-        email,
-        gender,
-        phone,
-        country,
-        password: passwordHash
-    };
-    const newUser = await User.create(data);
-    emailService.sendConfirmationEmail(newUser);
-    return newUser;
+    if (role === AGENT_LEVEL.lg) {
+
+    } else if (role === AGENT_LEVEL.ward) {
+        [lg, ward] = await Promise.all([
+            Lg.findByPk(lg_id, { raw: true }),
+            Ward.findByPk(ward_id, { raw: true })
+        ]);
+        agentData.ward = ward.name;
+    } else if (role === AGENT_LEVEL.pu) {
+        [lg, ward, pu] = await Promise.all([
+            Lg.findByPk(lg_id, { raw: true }),
+            Ward.findByPk(ward_id, { raw: true }),
+            PollingUnit.findByPk(pu_id, { raw: true })
+        ]);
+        agentData.ward = ward.name;
+        agentData.pu = pu.name;
+    }
+    agentData.lg_name = lg.name;
+    return agentData;
 }
 
-const login = async ({ email, password }) => {
+const create = async ({ fullname, username, role, password }) => {
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+    const data = {
+        fullname,
+        username,
+        role,
+        password: passwordHash
+    };
+    const newAdmin = await User.create(data);
+    return newAdmin;
+}
+
+const login = async ({ email: username, password }) => {
     const foundUser = await User.findOne({
-        where: { email },
-        //attributes: ['id', 'fullname', 'email', 'country', 'phone', 'password', 'active']
-        attributes: ['id', 'fullname', 'email', 'phone', 'password', 'active']
+        where: { username },
+        attributes: ['id', 'fullname', 'email', 'role', 'lg_id', 'ward_id', 'pu_id', 'password']
     });
     if (!foundUser) throw new ErrorHandler(404, 'Email or password is incorrect');
-
-    const user = foundUser.toJSON();
 
     const match = await bcrypt.compare(password, foundUser.password);
     if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
+    const user = foundUser.toJSON();
+    user.agentData = await fetchUserData(foundUser);
+
     delete user.password;
-    delete user.active;
     return user;
+}
+
+const list = async () => {
+    return User.findAll({
+        order: [
+            ['createdAt', 'DESC']
+        ]
+    }, { raw: true });
 }
 
 module.exports = {
     create,
-    login
+    login,
+    list
 }

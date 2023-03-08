@@ -2,7 +2,7 @@ doctype html
 head
     meta(charset='utf-8')
     meta(http-equiv='X-UA-Compatible' content='IE=edge')
-    title CaseTrackr Admin
+    title LP Situation Room
     // Tell the browser to be responsive to screen width
     meta(content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport')
     link(rel='stylesheet' href='/css/bootstrap.min.css')
@@ -13,20 +13,22 @@ head
         script(src='https://oss.maxcdn.com/respond/1.4.2/respond.min.js')
     // Google Font
     link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic')
+    block styleBlock
 
 body
     .container
         header.d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-md-between.py-3.mb-4.border-bottom
             a.d-flex.align-items-center.col-md-3.mb-2.mb-md-0.text-dark.text-decoration-none(href='/') Home
 
-            ul.nav.col-12.col-md-auto.mb-2.justify-content-center.mb-md-0
-                li
-                    a.nav-link.px-2.link-secondary(href='/admin/cases') Cases
-                li
-                    a.nav-link.px-2.link-dark(href='/admin/users') Users
+            //- ul.nav.col-12.col-md-auto.mb-2.justify-content-center.mb-md-0
+            //-     li
+            //-         a.nav-link.px-2.link-secondary(href='/admin/cases') Cases
+            //-     li
+            //-         a.nav-link.px-2.link-dark(href='/admin/users') Users
+            h4 #{user.agentData.lg_name }
 
             .col-md-3.text-end
-                button.btn.btn-outline-primary.me-2(type='button') Logout
+                a.btn.btn-outline-primary.me-2(href="/users/logout") Logout
 
     block content
 

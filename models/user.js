@@ -3,30 +3,35 @@
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define('User', {
         fullname: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(60),
             allowNull: false
         },
         email: {
-            type: DataTypes.STRING,
+            type: DataTypes.STRING(60)
+        },
+        username: {
+            type: DataTypes.STRING(20),
             allowNull: false
         },
-        phone: {
-            type: DataTypes.STRING
+        role: {
+            type: DataTypes.STRING(10)
         },
-        password: DataTypes.STRING,
+        password: DataTypes.STRING(100),
         active: {
             type: DataTypes.BOOLEAN,
             defaultValue: false
         }
     }, {
+        timestamps: true,
         indexes: [
-            { unique: true, fields: ['email'] },
-            { unique: true, fields: ['phone'] }
+            { unique: true, fields: ['username'] }
         ]
     });
 
     User.associate = function (models) {
-        // User.hasMany(models.Case)
+        User.belongsTo(models.Lg, { foreignKey: 'lg_id' });
+        User.belongsTo(models.Ward, { foreignKey: 'ward_id' });
+        User.belongsTo(models.PollingUnit, { foreignKey: 'pu_id' });
     };
 
     return User;

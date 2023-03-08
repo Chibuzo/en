@@ -1,0 +1,72 @@
+extend layout 
+
+block content 
+    .container
+        .row 
+            .col-md-12
+                //- a.btn.btn-secondary.btn.lg.float-end(href="/admin/cases")
+                //-     .fa.fa-caret-left 
+                //-     |  Go Back 
+        .row.justify-content-md-center 
+            .col-md-7.mb-4
+                h3 #{user.agentData.ward}
+                br/
+                form(method="post" action="/admin/ward" encType="multipart/form-data")
+                    .mb-3 
+                        .row 
+                            .col-md-6
+                                label Total Accredited Votes
+                                input.form-control(type="text" name="age" value="87,000" readonly)
+                            .col-md-6 
+                                label Total Valid Votes 
+                                input.form-control(type="text" name="age" value="47,000" readonly)
+                    table.table.table-striped.mt-5 
+                        head 
+                            tr 
+                                th(style="width: 45%") Polling Units 
+                                th APGA 
+                                th APC 
+                                th LP 
+                                th PDP
+                        body 
+                            tr 
+                                td PU1015 
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+
+                            tr 
+                                td PU1016
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+
+                            tr 
+                                td PU1001
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+                                td 
+                                    input.form-control(type="number" name="age")
+
+                    .mb-3 
+                        .row 
+                            .col-md-12 
+                                label Upload Result Sheet
+                                input.form-control.input.lg(type="file" name="evidences" multiple)
+                    .mb-3.text-center 
+                        br/
+                        input.btn.btn-success.btn-lg(type="submit" value="Submit Result")

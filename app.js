@@ -9,8 +9,9 @@ const authenticate = require('./middlewares/authenticate');
 const formatView = require('./middlewares/formatView');
 
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const adminRouter = require('./routes/admin');
+const userRouter = require('./routes/user');
+const puRoutes = require('./routes/pu');
+const wardRoutes = require('./routes/ward');
 
 var app = express();
 
@@ -35,8 +36,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(formatView);
 app.use('/', indexRouter);
-app.use('/users', authenticate, usersRouter);
-app.use('/admin', adminRouter);
+app.use('/users', userRouter);
+app.use('/pu', puRoutes);
+app.use('/wards', wardRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,92 +1,64 @@
 extend layout
 
+block styleBlock
+    style.
+        .votes {
+            text-align: right
+        }
+
 block content 
     .section.pt-5.pb-5
         .container
             .row.justify-content-center.mb-5
                 .col-lg-7.text-center
-                    h2.heading Active Cases
-            .row
-                .col-lg-12
-                    .posts-slide-wrap
-                        #posts-slide.posts-slide
-                            each _case in cases
-                                - const url_path = _case.title.split(' ').join('-')
-                                - const photo = _case.media.length ? _case.media[0].media_url : 'images/police-brutality-md.jpg'
-                                .item
-                                    .post-entry.d-lg-flex
-                                        .me-lg-5.thumbnail.mb-4.mb-lg-0
-                                            a(href=`/cases/${_case.id}/${url_path}`)
-                                                img.img-fluid(src=`/${photo}` alt='Image')
-                                        .content.align-self-center
-                                            .post-meta.mb-3
-                                                a.category(href='#')= _case.Agency.abbr
-                                                | , 
-                                                a.category(href='#')= _case.CaseCategory.name
-                                                |  &mdash;
-                                                span.date= view.formatDate(_case.createdAt)
-                                            h2.heading
-                                                a(href=`/cases/${_case.id}/${url_path}`)= _case.title
-                                            p= view.postIntro(_case.description, 600)
-                                            a.post-author.d-flex.align-items-center(href='#')
-                                                .author-pic
-                                                    i.fa.fa-calendar.fa-2x
-                                                .text
-                                                    strong Posted On:
-                                                    span= view.formatDate(_case.createdAt)
-
-    .sector.my-5
-        .container 
-            .row.justify-content-center
-                .col-lg-9
-                    h2.mb-4 #[strong Recent Cases]
-
-                    each recent in recentCases
-                        - const url_path = recent.title.split(' ').join('-')
-                        - const photo = recent.media.length ? recent.media[0].media_url : 'images/police-brutality-md.jpg'
-                        .post-entry.d-md-flex.small-horizontal.mb-5
-                            .me-md-5.thumbnail.mb-3.mb-md-0
-                                img.img-fluid(src=`/${photo}` alt='Image')
-                            .content
-                                .post-meta.mb-3
-                                    a.category(href='#')= recent.Agency.abbr
-                                    | , 
-                                    a.category(href='#')= recent.CaseCategory.name
-                                    |  &mdash;
-                                    span.date= view.formatDate(recent.event_date)
-                                h2.heading
-                                    a(href=`/cases/${recent.id}/${url_path}`)= recent.title
-                                p= view.postIntro(recent.description, 200)
-                                a.post-author.d-flex.align-items-center(href='#')
-                                    .author-pic
-                                        i.fa.fa-calendar.fa-2x
-                                    .text
-                                        strong Posted On:
-                                        span= view.formatDate(recent.createdAt)
+                    h4.heading.mb-5(style='color: #3cb371') 2023 Enugu State Gubernatorial Election
 
 
-    //- .section
-    //-     .container
-    //-         .row.g-5
-    //-             .col-lg-4
-    //-                 .post-entry.d-block.small-post-entry-v
-    //-                     .thumbnail
-    //-                         a(href='single.html')
-    //-                             img.img-fluid(src='images/ximg_2.jpg.pagespeed.ic.fbbBEgB1Q6.webp' alt='Image' data-pagespeed-url-hash='3151298507' onload='pagespeed.CriticalImages.checkImageForCriticality(this);')
-    //-                     .content
-    //-                         .post-meta.mb-1
-    //-                             a.category(href='#') Business
-    //-                             | , 
-    //-                             a.category(href='#') Travel
-    //-                             |  &mdash;
-    //-                             span.date July 2, 2020
-    //-                         h2.heading.mb-3
-    //-                             a(href='single.html') Your most unhappy customers are your greatest source of learning.
-    //-                         p
-    //-                             | Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.
-    //-                         a.post-author.d-flex.align-items-center(href='#')
-    //-                             .author-pic
-    //-                                 img(src='images/xperson_1.jpg.pagespeed.ic.Zebptmx_f8.webp' alt='Image' data-pagespeed-url-hash='1813383360' onload='pagespeed.CriticalImages.checkImageForCriticality(this);')
-    //-                             .text
-    //-                                 strong Sergy Campbell
-    //-                                 span CEO and Founder
+                    //- .row 
+                    //-     .col-md-2 Party   
+                    //-     .col-md-6 Percentage 
+                    //-     .col-md-3 Votes 
+                    //- .row 
+                    //-     .col-md-2 APGA   
+                    //-     .col-md-6 35% 
+                    //-     .col-md-3 234,968 
+            .row.justify-content-center.mb-5
+                .col-lg-7
+                    table.table
+                        head 
+                            tr 
+                                th(style="width: 19%") Party
+                                th(style="width: 65%") Percentage 
+                                th.votes Votes 
+                        body 
+                            tr 
+                                td APGA 
+                                td 
+                                    .progress 
+                                        .progress-bar.bg-danger(role="progressbar" style="width: 35%" aria-valuenow="35" aria-valuemin="0" aria-valuemax="100") 35%
+                                td.votes 234,967
+                            tr 
+                                td APC 
+                                td 
+                                    .progress 
+                                        .progress-bar.bg-warning(role="progressbar" style="width: 15%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100") 15%
+                                td.votes 11,062
+                            tr 
+                                td LP 
+                                td 
+                                    .progress 
+                                        .progress-bar.bg-success(role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100") 40%
+                                td.votes 340,170
+                            tr 
+                                td PDP 
+                                td 
+                                    .progress 
+                                        .progress-bar.bg-info(role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100") 25%
+                                td.votes 23,967
+                            tr 
+                                td OTHERS
+                                td 
+                                    .progress 
+                                        .progress-bar(role="progressbar" style="width: 7%" aria-valuenow="7" aria-valuemin="0" aria-valuemax="100") 7%
+                                td.votes 8,301
+

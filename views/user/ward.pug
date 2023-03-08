@@ -1,0 +1,68 @@
+extend layout 
+
+block styleBlock
+    style.
+        .pu {
+            text-align: left;
+        }
+        td, th { text-align: right }
+
+block content 
+    .container 
+        .row 
+            .col-md-6 
+                h3 Votes
+            .col-md-6.text-end 
+                strong Total Accredited Votes: 
+                | #{puResults.total_accredited_voters}
+                br/ 
+                strong Total Valid Votes: 
+                | #{puResults.total_valid_votes}
+        .row.mt-1
+            .col 
+                table.table.table-striped.table-sm
+                    thead 
+                        tr 
+                            th.pu Ward 
+                            th APC 
+                            th APGA 
+                            th LP
+                            th PDP 
+                            th Others 
+                            th Action 
+                    tbody 
+                        each pu in puResults
+                            tr 
+                                td.pu= pu.name
+                                td= pu.vote.apc
+                                td= pu.vote.apga
+                                td= pu.vote.lp 
+                                td= pu.vote.pdp
+                                td 
+                                td
+
+                    tfoot
+                        tr 
+                            td.pu TOTAL
+                            td= puResults.parties.apc
+                            td= puResults.parties.apga
+                            td= puResults.parties.lp
+                            td= puResults.parties.pdp
+                            td 684
+                            td 
+
+block scriptBlock 
+    script.  
+        function deleteCase(id, el) {
+            if (confirm("Are you sure you want to delete this case")) {
+                fetch('/admin/delete-case/' + id, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status === true) {
+                        el.closest('tr').remove();
+                    }
+                });
+            }
+        }                            

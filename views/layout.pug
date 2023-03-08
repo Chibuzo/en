@@ -5,6 +5,7 @@ head
     link(href='https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap' rel='stylesheet')
     link(rel='stylesheet' href='/css/fontawesome-min.css')
     link(href='/css/style.css' rel="stylesheet")
+    link(rel='stylesheet' href='/css/bootstrap.min.css')
     block styleBlock
     title Police Tracker
 body
@@ -18,11 +19,9 @@ body
             .site-navigation
                 .row
                     .col-md-6.text-center.order-1.order-md-2.mb-3.mb-md-0
-                        a.logo.m-0(href='/') PoliceTrackr
+                        h3.m-0(style='color: #ff594f') LP Situation Room
                     .col-md-3.order-3.order-md-1
-                        form.search-form(action='/search')
-                            i.icon-sh.fa.fa-search
-                            input.form-control(type='search' name="keywords" placeholder='Search...')
+
                     .col-md-3.text-end.order-2.order-md-3.mb-3.mb-md-0
                         .d-flex
                             ul.list-unstyled.social.me-auto
@@ -69,17 +68,6 @@ body
     block content
 
 
-    .py-5.bg-light.mx-md-3.sec-subscribe
-        .container
-            .row
-                .col-lg-12
-                    h2.h4.fw-bold Subscribe to newsletter
-            form.row(action='')
-                .col-md-8
-                    .mb-3.mb-md-0
-                        input.form-control(type='email' placeholder='Enter your email')
-                .col-md-4.d-grid
-                    input.btn.btn-primary(type='submit' value='Subscribe')
     .site-footer
         .container
             .row.justify-content-center.copyright
@@ -98,10 +86,10 @@ body
                             script.
                                 document.write(new Date().getFullYear());
                             |  All rights reserved 
-                        .d-block
-                            a.m-2(href='#') Terms &amp; Conditions
-                            | /
-                            a.m-2(href='#') Privacy Policy
+                        //- .d-block
+                        //-     a.m-2(href='#') Terms &amp; Conditions
+                        //-     | /
+                        //-     a.m-2(href='#') Privacy Policy
 
     script(src='/js/bootstrap-bundle.min.js')
     script(src='/js/tiny-slider.js')

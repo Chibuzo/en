@@ -1,0 +1,121 @@
+extend layout 
+
+block styleBlock
+    style.
+        .pu {
+            text-align: left; font-weight: bold
+        }
+        td, th { text-align: right }
+
+block content 
+    .container 
+        .row 
+            .col-md-6 
+                strong Total votes from polling units under WARD 02
+            .col-md-6.text-end 
+                strong Total Accredited Votes: 
+                | 8,969
+                br/ 
+                strong Total Valid Votes: 
+                | 7,970 
+        .row.mt-1
+            .col 
+                table.table.table-striped 
+                    thead 
+                        tr 
+                            th.pu Polling Unit 
+                            th APC 
+                            th APGA 
+                            th LP
+                            th PDP 
+                            th Others 
+                            th Action 
+                    tbody 
+                        tr 
+                            td.pu PU1020
+                            td 30
+                            td 101
+                            td 120
+                            td 98
+                            td 61
+                            td 
+                        tr 
+                            td.pu PU1021 
+                            td 26
+                            td 204
+                            td 321
+                            td 150
+                            td 32
+                            td 
+                        tr 
+                            td.pu PU1223
+                            td 65
+                            td 14
+                            td 27
+                            td 159
+                            td 102
+                            td 
+                        tr 
+                            td.pu PU1020
+                            td 30
+                            td 101
+                            td 120
+                            td 98
+                            td 61
+                            td 
+                        tr 
+                            td.pu PU1021 
+                            td 26
+                            td 204
+                            td 321
+                            td 150
+                            td 32
+                            td 
+                        tr 
+                            td.pu PU1223
+                            td 65
+                            td 14
+                            td 27
+                            td 159
+                            td 102
+                            td 
+                    tfoot
+                        tr 
+                            td.pu TOTAL
+                            td 310
+                            td 1,495
+                            td 1,984
+                            td 1,048
+                            td 684
+                            td 
+                        //- each _case in cases
+                        //-     tr 
+                        //-         td= view.formatDate(_case.createdAt)
+                        //-         td= _case.title 
+                        //-         td= _case.location
+                        //-         td.text-center #{_case.gender} / #{_case.age}
+                        //-         td 0
+                        //-         td= _case.status
+                        //-         td= _case.Admin && _case.Admin.fullname 
+                        //-         td.text-center 
+                        //-             a(href=`/admin/edit-case/${_case.id}` title="Edit Case" style="margin-right: 9px")
+                        //-                 i.fa.fa-pencil.fa-lg
+
+                        //-             a.delete(href="#" onClick=`deleteCase(${_case.id}, this)` title="Delete Case")
+                        //-                 i.fa.fa-trash.fa-lg
+
+block scriptBlock 
+    script.  
+        function deleteCase(id, el) {
+            if (confirm("Are you sure you want to delete this case")) {
+                fetch('/admin/delete-case/' + id, {
+                    method: 'DELETE'
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.status === true) {
+                        el.closest('tr').remove();
+                    }
+                });
+            }
+        }                            

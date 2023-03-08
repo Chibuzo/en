@@ -1,0 +1,64 @@
+extend layout 
+
+block content 
+    .container
+        .row 
+            .col-md-12
+                //- a.btn.btn-secondary.btn.lg.float-end(href="/admin/cases")
+                //-     .fa.fa-caret-left 
+                //-     |  Go Back 
+        .row.justify-content-md-center 
+            .col-md-6.mb-5
+                h3 #{user.agentData.pu}
+                br/
+                form(method="post" action="/pu" encType="multipart/form-data")
+                    .mb-3
+                        .row 
+                            .col-md-6     
+                                input(type="hidden" name="ward_id" value=`${user.ward_id}` required)
+                                input(type="hidden" name="pu_id" value=`${user.pu_id}` required)
+
+
+                    .mb-3 
+                        .row 
+                            .col-md-6
+                                label Total Accredited Voters
+                                input.form-control(type="text" name="total_accredited_voters" required)
+                            .col-md-6 
+                                label Total Valid Votes 
+                                input.form-control(type="text" name="total_valid_votes" required)
+
+
+                    .mb-3 
+                        .row 
+                            .col-md-6
+                                label APC
+                            .col-md-6 
+                                input.form-control(type="text" name="apc" required)
+
+                        .row 
+                            .col-md-6
+                                label APGA
+                            .col-md-6 
+                                input.form-control(type="text" name="apga" required)
+
+                        .row 
+                            .col-md-6
+                                label LP
+                            .col-md-6 
+                                input.form-control(type="text" name="lp" required)
+
+                        .row 
+                            .col-md-6
+                                label PDP
+                            .col-md-6 
+                                input.form-control(type="text" name="pdp" required)
+
+                    .mb-3 
+                        .row 
+                            .col-md-12 
+                                label Upload Result Sheet 
+                                input.form-control.input.lg(type="file" name="result_file" required)
+                    .mb-3.text-center 
+                        br/
+                        input.btn.btn-success.btn-lg(type="submit" value="Submit Result")
