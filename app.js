@@ -12,6 +12,7 @@ const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
 const puRoutes = require('./routes/pu');
 const wardRoutes = require('./routes/ward');
+const lgRoutes = require('./routes/lg');
 
 var app = express();
 
@@ -38,7 +39,8 @@ app.use(formatView);
 app.use('/', indexRouter);
 app.use('/users', userRouter);
 app.use('/pu', puRoutes);
-app.use('/wards', wardRoutes);
+app.use('/ward', wardRoutes);
+app.use('/lg', lgRoutes);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
