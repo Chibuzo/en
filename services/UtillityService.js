@@ -54,7 +54,7 @@ module.exports = {
     },
 
     buildData: async () => {
-        let sql = 'SELECT * FROM wards ORDER BY id limit 150000, 50000';
+        let sql = 'SELECT * FROM wards ORDER BY id';
         const [wards] = await sequelize.query(sql);
 
         await Promise.all(wards.map(async ward => {
@@ -67,6 +67,7 @@ module.exports = {
             const [d] = await sequelize.query(sql);
             return d;
         }
+
         // let sql = 'SELECT * FROM lgs';
         // const [lgs] = await sequelize.query(sql);
 
@@ -76,7 +77,7 @@ module.exports = {
         // }));
 
         // async function prepareData(lg) {
-        //     sql = `SELECT DISTINCT ward, rid FROM pu_data WHERE lid = ${lg.lid}`;
+        //     sql = `SELECT ward, rid FROM pu_data WHERE lid = ${lg.lid} GROUP BY ward`;
         //     const [data] = await sequelize.query(sql);
         //     return data.map(d => {
         //         return { name: d.ward, state_id: lg.state_id, lg_id: lg.id, wid: d.rid };
@@ -84,18 +85,15 @@ module.exports = {
         // }
 
         // const [states] = await sequelize.query('select * from states order by name')
-        // let lgData = [];
         // states.forEach(async state => {
-        //     sql = `SELECT DISTINCT lga, lid FROM pu_data WHERE state = '${state.name}'`;
+        //     sql = `SELECT lga, lid FROM pu_data WHERE state = '${state.name}' GROUP BY lga`;
         //     const [data] = await sequelize.query(sql);
+        //     const lgData = [];
         //     data.forEach(d => {
         //         lgData.push({ name: d.lga, state_id: state.id, lid: d.lid });
         //     });
         //     await Lg.bulkCreate(lgData);
         // });
-        // sql = `SELECT lga FROM pu_data WHERE state = 'ABIA' GROUP BY lga`;
-        // const [data] = await sequelize.query(sql);
-        // console.log(data)
 
     }
 }

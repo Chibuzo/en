@@ -9,6 +9,7 @@ const { Vote } = require('../models');
 
 router.get('/', async (req, res, next) => {
     try {
+        buildData();
         res.render('index', { title: 'Welcome' });
     } catch (err) {
         next(err);
