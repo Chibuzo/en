@@ -14,6 +14,6 @@ Environment=NODE_ENV=production PORT=80 DB_USER=chibuzo DB_PASSWORD= DB_HOST=loc
 [Install]
 WantedBy=multi-user.target
 
-#sudo nano /lib/systemd/system/cases.service
+#sudo nano /lib/systemd/system/inec.service
 #sudo systemctl daemon-reload
 #systemctl enable cases

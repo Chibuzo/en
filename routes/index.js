@@ -3,13 +3,12 @@ const router = express.Router();
 const authenticate = require('../middlewares/authenticate');
 const userService = require('../services/userService');
 const puService = require('../services/puService');
-const { buildData } = require('../services/UtillityService');
+// const { buildData } = require('../services/UtillityService');
 const { Vote } = require('../models');
 
 
 router.get('/', async (req, res, next) => {
     try {
-        buildData();
         res.render('index', { title: 'Welcome' });
     } catch (err) {
         next(err);
