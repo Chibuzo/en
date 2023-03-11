@@ -1,4 +1,4 @@
-const { PollingUnit, Ward, Vote } = require('../models');
+const { PollingUnit, Ward, Vote, Lg } = require('../models');
 const { uploadFile } = require('../helpers/fileUpload');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { buildCriteria } = require('./UtillityService');
@@ -6,24 +6,24 @@ const { AGENT_LEVEL } = require('../config/constants');
 const puService = require('./puService');
 
 
-const save = async ({ result_file, ward_id, user_id, ...parties }) => {
-    const ward = await Ward.findByPk(ward_id);
-    if (!ward) throw new ErrorHandler(400, 'Invalid Ward');
+const save = async ({ result_file, lg_id, user_id, ...parties }) => {
+    const lg = await Lg.findByPk(lg_id);
+    if (!lg) throw new ErrorHandler(400, 'Invalid Local government');
 
-    const result_sheet = uploadFile(result_file, `ward_${ward_id}`);
+    const result_sheet = uploadFile(result_file, `lg_${lg_id}`);
 
-    const rawVote = await ward.createVote({
+    const rawVote = await lg.createVote({
         parties: JSON.stringify(parties),
-        vote_level: AGENT_LEVEL.ward,
-        vote_level_id: ward_id
+        vote_level: AGENT_LEVEL.lg,
+        vote_level_id: lg_id
     });
     const vote = rawVote.toJSON();
     // ward.total_accredited_voters = total_accredited_voters;
     // ward.total_valid_votes = total_valid_votes;
-    ward.vote_id = vote.id;
-    ward.result_sheet = result_sheet;
-    await ward.save();
-    return { ...ward.toJSON(), vote: parties };
+    lg.vote_id = vote.id;
+    lg.result_sheet = result_sheet;
+    await lg.save();
+    return { ...lg.toJSON(), vote: parties };
 }
 
 

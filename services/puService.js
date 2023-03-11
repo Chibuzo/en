@@ -28,9 +28,9 @@ const save = async ({ ward_id, pu_id, total_accredited_voters, total_valid_votes
 
 
 const view = async criteria => {
-    const { where, params } = buildCriteria({ ...criteria });
-    const pu = await PollingUnit.findOne({ where, ...params });
-    return sanitizeCase(pu.toJSON());
+    const pu = await PollingUnit.findOne(criteria);
+    const vote = pu.vote.id ? JSON.parse(pu.vote.parties) : nullVotes;
+    return { ...pu.toJSON(), vote };
 }
 
 const list = async criteria => {

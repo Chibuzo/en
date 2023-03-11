@@ -9,56 +9,72 @@ block content
                 //-     |  Go Back 
         .row.justify-content-md-center 
             .col-md-7.mb-4
-                h3 Oji River LGA
+                h4 #{user.agentData.lg_name}
                 br/
-                form(method="post" action="/admin/ward" encType="multipart/form-data")
-                    table.table.table-striped 
+                form#ward-form(method="post" action="/lg/new" encType="multipart/form-data")
+                    .mb-3 
+                        .row 
+                            .col-md-6
+                                label Total Accredited Votes
+                                input.form-control(type="text" name="" value="87,000" readonly)
+                            .col-md-6 
+                                label Total Valid Votes 
+                                input.form-control(type="text" name="" value="47,000" readonly)
+                    table.table.table-striped.mt-5#pu-table
                         head 
                             tr 
-                                th(style="width: 45%") Polling Units 
+                                th(style="width: 45%") Wards
                                 th APGA 
                                 th APC 
                                 th LP 
                                 th PDP
                         body 
                             tr 
-                                td Ward 01 
+                                td Total votes
                                 td 
-                                    input.form-control(type="number" name="age")
+                                    input.form-control(type="number" name="apga")
                                 td 
-                                    input.form-control(type="number" name="age")
+                                    input.form-control(type="number" name="apc")
                                 td 
-                                    input.form-control(type="number" name="age")
+                                    input.form-control(type="number" name="lp")
                                 td 
-                                    input.form-control(type="number" name="age")
-
-                            tr 
-                                td Ward 02
-                                td 
-                                    input.form-control(type="number" name="age")
-                                td 
-                                    input.form-control(type="number" name="age")
-                                td 
-                                    input.form-control(type="number" name="age")
-                                td 
-                                    input.form-control(type="number" name="age")
-
-                            tr 
-                                td Ward 03
-                                td 
-                                    input.form-control(type="number" name="age")
-                                td 
-                                    input.form-control(type="number" name="age")
-                                td 
-                                    input.form-control(type="number" name="age")
-                                td 
-                                    input.form-control(type="number" name="age")
+                                    input.form-control(type="number" name="pdp")
 
                     .mb-3 
                         .row 
                             .col-md-12 
-                                label Upload Result Sheet (.xlsx)
-                                input.form-control.input.lg(type="file" name="evidences" multiple)
+                                label Upload Result Sheet
+                                input.form-control.input.lg(type="file" name="result_file" multiple)
                     .mb-3.text-center 
                         br/
                         input.btn.btn-success.btn-lg(type="submit" value="Submit Result")
+
+block scriptBlock 
+    script.  
+        //- const wordForm = document.getElementById('ward-form');
+        //- wordForm.addEventListener('submit', e => {
+        //-     e.preventDefault();
+
+        //-     // get table
+        //-     const puTableRows = document.getElementById("pu-table").rows;
+        //-     const puVotes = []; 
+        //-     for (let i = 1; i < puTableRows.length; i++) {
+        //-         const puData = puTableRows.item(i).cells;
+        //-         puVotes.push({
+        //-             pu_id: puData.item(0).children[0].value,
+        //-             apga: puData.item(1).children[0].value,
+        //-             apc: puData.item(2).children[0].value,
+        //-             lp: puData.item(3).children[0].value,
+        //-             pdp: puData.item(4).children[0].value
+        //-         });
+        //-     }
+        //-     const formData = new FormData();
+        //-     formData.append('puData', JSON.stringify(puVotes));
+        //-     formData.append('result_file', e.target.result_file.files[0]);
+
+        //-     fetch("http://localhost:3000/ward/new", {
+        //-         method: 'POST',
+        //-         //headers: { "Content-type": "multipart/form-data" },
+        //-         body: formData
+        //-     }).then(() => {});
+        //- });

@@ -9,6 +9,9 @@ module.exports = (sequelize, DataTypes) => {
         wid: {
             type: DataTypes.INTEGER
         },
+        result_sheet: {
+            type: DataTypes.STRING
+        },
         total_accredited_voters: {
             type: DataTypes.INTEGER
         },

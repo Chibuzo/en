@@ -9,7 +9,7 @@ const fetchUserData = async ({ role, lg_id, ward_id, pu_id }) => {
     let lg, ward, agentData = {};
 
     if (role === AGENT_LEVEL.lg) {
-
+        lg = await Lg.findByPk(lg_id, { raw: true });
     } else if (role === AGENT_LEVEL.ward) {
         [lg, ward] = await Promise.all([
             Lg.findByPk(lg_id, { raw: true }),

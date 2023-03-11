@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     Vote.associate = function (models) {
         Vote.hasOne(models.PollingUnit, { foreignKey: 'vote_id' });
         Vote.hasOne(models.Ward, { foreignKey: 'vote_id' });
+        Vote.hasOne(models.Lg, { foreignKey: 'vote_id' });
     };
 
     return Vote;
