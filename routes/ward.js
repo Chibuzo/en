@@ -2,16 +2,17 @@ const express = require('express');
 const router = express.Router();
 const wardService = require('../services/wardService');
 const authenticate = require('../middlewares/authenticate');
+const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const puService = require('../services/puService');
-// const { } = require('../models');
+const { PollingUnit } = require('../models');
 
 
 
 router.post('/new', authenticate, async (req, res, next) => {
     try {
-        const { ward_id } = req.session.user;
-        const ward = await wardService.save({ ...req.body, result_file: req.files, ward_id, user_id: req.session.user.id });
-        res.redirect('/ward/list-all');
+        const user = req.session.user;
+        const ward = await wardService.save({ ...req.body, result_file: req.files, user_id: user.id });
+        res.redirect('/confirmation');
     } catch (err) {
         next(err);
     }
@@ -19,15 +20,25 @@ router.post('/new', authenticate, async (req, res, next) => {
 
 router.get('/new', authenticate, async (req, res, next) => {
     try {
-        const user = req.session.user;
-        const puResults = await wardService.fetchPollingUnitResult(user.ward_id);
-        res.render('user/new-ward', { puResults, user });
+        const { agentData } = req.session.user;
+        // const puResults = await wardService.fetchPollingUnitResult(user.ward_id);
+        res.render('user/new-ward', { agentData });
     } catch (err) {
         next(err);
     }
 });
 
-router.get('/list-all', async (req, res, next) => {
+router.get('/fetch', authenticate, async (req, res, next) => {
+    try {
+        const { ward_id } = req.query;
+        const pus = await PollingUnit.findAll({ where: { ward_id } });
+        res.json({ status: 'true', data: pus });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/list-all', authenticateAdmin, async (req, res, next) => {
     try {
         const { ward_id } = req.session.user;
         const puResults = await wardService.fetchPollingUnitResult(ward_id);

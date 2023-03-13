@@ -30,6 +30,11 @@ router.post('/login', async (req, res, next) => {
     }
 });
 
+router.get('/confirmation', (req, res) => {
+    req.session.destroy();
+    res.render('user/confirmation', { title: 'Result Submitted' });
+});
+
 
 
 module.exports = router;

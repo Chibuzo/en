@@ -12,47 +12,58 @@ block content
                 h3 #{user.agentData.pu}
                 br/
                 form(method="post" action="/pu" encType="multipart/form-data")
-                    .mb-3
-                        .row 
-                            .col-md-6     
-                                input(type="hidden" name="ward_id" value=`${user.ward_id}` required)
-                                input(type="hidden" name="pu_id" value=`${user.pu_id}` required)
+                    //- .mb-3
+                    //-     .row 
+                    //-         .col-md-6     
+                    //-             input(type="hidden" name="ward_id" value=`${user.ward_id}` required)
+                    //-             input(type="hidden" name="pu_id" value=`${user.pu_id}` required)
 
+                    .mb-3 
+                        .row 
+                            .col-md-6
+                                label Ward
+                                select.form-control#ward-id(name="ward_id" required)
+                                    option(value="")| -- Select your Ward --
+                                        each ward in agentData.wards
+                                            option(value=`${ward.id}`)= ward.name
+                            .col-md-6
+                                label Polling Unit
+                                select.form-control#pu-id(name="pu_id" required)
+                                    option(value="")| -- Select your Polling Unit --
 
                     .mb-3 
                         .row 
                             .col-md-6
                                 label Total Accredited Voters
-                                input.form-control(type="text" name="total_accredited_voters" value=`${pu.total_accredited_voters}` required)
+                                input.form-control(type="text" name="total_accredited_voters" required)
                             .col-md-6 
                                 label Total Valid Votes 
-                                input.form-control(type="text" name="total_valid_votes" value=`${pu.total_valid_votes}` required)
-
+                                input.form-control(type="text" name="total_valid_votes" required)
 
                     .mb-3 
                         .row 
                             .col-md-6
                                 label APC
                             .col-md-6 
-                                input.form-control(type="text" name="apc" value=`${pu.vote.apc}` required)
+                                input.form-control(type="text" name="apc" required)
 
                         .row 
                             .col-md-6
                                 label APGA
                             .col-md-6 
-                                input.form-control(type="text" name="apga"  value=`${pu.vote.apga}` required)
+                                input.form-control(type="text" name="apga" required)
 
                         .row 
                             .col-md-6
                                 label LP
                             .col-md-6 
-                                input.form-control(type="text" name="lp" value=`${pu.vote.lp}` required)
+                                input.form-control(type="text" name="lp" required)
 
                         .row 
                             .col-md-6
                                 label PDP
                             .col-md-6 
-                                input.form-control(type="text" name="pdp" value=`${pu.vote.pdp}` required)
+                                input.form-control(type="text" name="pdp" required)
 
                     .mb-3 
                         .row 
@@ -62,3 +73,23 @@ block content
                     .mb-3.text-center 
                         br/
                         input.btn.btn-success.btn-lg(type="submit" value="Submit Result")
+
+block scriptBlock
+    script.
+
+        const wardOpt = document.getElementById("ward-id");
+        wardOpt.addEventListener('change', (e) => {
+            const ward_id = e.target.options[e.target.options.selectedIndex].value;
+
+            fetch(`http://localhost:3000/ward/fetch?ward_id=${ward_id}`)
+                .then((data) => data.json())
+                .then(d => {
+                    let opts = '<option value="">-- Select your Polling Unit --</option>';
+                    if (d.status.trim() == 'true') {
+                        d.data.forEach(pu => {
+                            opts += `<option value='${pu.id}'>${pu.name}</option>`;
+                        });
+                        document.getElementById("pu-id").innerHTML = opts;
+                    }
+                });
+        });

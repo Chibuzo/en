@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 
     Ward.associate = function (models) {
         Ward.belongsTo(models.State, { foreignKey: 'state_id' });
-        Ward.belongsTo(models.Lg, { foreignKey: 'lg_id' });
+        Ward.belongsTo(models.Lg, { as: 'lg', foreignKey: 'lg_id' });
         Ward.hasMany(models.PollingUnit, { as: 'pollingUnits', foreignKey: 'ward_id' });
         Ward.belongsTo(models.Vote, { as: 'vote', foreignKey: 'vote_id' });
         Ward.hasOne(models.User, { foreignKey: 'ward_id' });

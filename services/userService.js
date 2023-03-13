@@ -6,35 +6,41 @@ const { AGENT_LEVEL } = require('../config/constants');
 const { State, Lg, Ward, PollingUnit } = require('../models');
 
 const fetchUserData = async ({ role, lg_id, ward_id, pu_id }) => {
-    let lg, ward, agentData = {};
+    let lg, agentData = {};
 
     if (role === AGENT_LEVEL.lg) {
-        lg = await Lg.findByPk(lg_id, { raw: true });
+        lg = await Lg.findAll({ where: { state_id: 14 }, raw: true });
+        agentData.lg = lg;
     } else if (role === AGENT_LEVEL.ward) {
-        [lg, ward] = await Promise.all([
-            Lg.findByPk(lg_id, { raw: true }),
-            Ward.findByPk(ward_id, { raw: true })
+        [lg, wards] = await Promise.all([
+            Lg.findOne({ where: { id: lg_id }, raw: true }),
+            Ward.findAll({ where: { lg_id }, raw: true })
         ]);
-        agentData.ward = ward.name;
+        agentData.lg = lg;
+        agentData.wards = wards;
     } else if (role === AGENT_LEVEL.pu) {
-        [lg, ward, pu] = await Promise.all([
-            Lg.findByPk(lg_id, { raw: true }),
-            Ward.findByPk(ward_id, { raw: true }),
-            PollingUnit.findByPk(pu_id, { raw: true })
+        [ward, pus] = await Promise.all([
+            Ward.findOne({
+                where: { id: ward_id },
+                include: 'lg'
+            }),
+            PollingUnit.findAll({ where: { ward_id }, raw: true })
         ]);
-        agentData.ward = ward.name;
-        agentData.pu = pu.name;
+        agentData.ward = ward;
+        agentData.pollingUnits = pus;
     }
-    agentData.lg_name = lg.name;
     return agentData;
 }
 
-const create = async ({ fullname, username, role, password }) => {
+const create = async ({ fullname, username, role, lg_id, ward_id = null, password }) => {
     const passwordHash = await bcrypt.hash(password, saltRounds);
+    console.log({ ward_id })
     const data = {
         fullname,
         username,
         role,
+        lg_id,
+        ward_id: ward_id || null,
         password: passwordHash
     };
     const newAdmin = await User.create(data);
@@ -52,7 +58,13 @@ const login = async ({ email: username, password }) => {
     if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
     const user = foundUser.toJSON();
-    user.agentData = await fetchUserData(foundUser);
+    const [lg, wards] = await Promise.all([
+        Lg.findOne({ where: { id: foundUser.lg_id }, raw: true }),
+        Ward.findAll({ where: { lg_id: foundUser.lg_id }, raw: true })
+    ]);
+
+    const data = { lg, wards };
+    user.agentData = data;
 
     delete user.password;
     return user;

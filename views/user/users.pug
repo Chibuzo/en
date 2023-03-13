@@ -12,19 +12,15 @@ block content
                     thead 
                         tr 
                             th Date Added 
-                            th Name 
-                            th Email 
-                            th Phone 
-                            th Posts 
+                            th Username 
+                            th Agent  
                             th Action
                     tbody 
                         each user in users 
                             tr 
                                 td= view.formatDate(user.createdAt)
-                                td= user.fullname 
-                                td= user.email 
-                                td= user.phone 
-                                td 0
+                                td= user.username 
+                                td= user.role 
                                 td
 
 
@@ -36,17 +32,28 @@ block content
                     button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
                 form(method="post" action="/users/create")
                     .modal-body
-                        .mb-3
-                            input.form-control(type="text" name="fullname" placeholder="Full name" aria-label="Full name" required=true)
+                        //- .mb-3
+                        //-     input.form-control(type="text" name="fullname" placeholder="Full name" aria-label="Full name" required=true)
                         .mb-3
                             //- input.form-control(type="email" name="email" placeholder="Email" aria-label="Email" required=true)
                             input.form-control(type="text" name="username" placeholder="Username" aria-label="Username" required=true)
                         .mb-3
-                            //- input.form-control(type="text" name="phone" placeholder="Phone" aria-label="Phone")
                             select.form-control(name="role")
                                 option(value="") -- Select Role --
+                                option(value="lg") Local Govt Agent
                                 option(value="ward") Ward Agent 
                                 option(value="pu") Polling Unit Agent
+                        .mb-3.row
+                            .col-6 
+                                select.form-control(name="lg_id")
+                                    option(value="")| -- Select Local Govt --
+                                    each lg in lgs 
+                                        option(value=`${lg.id}`)= lg.name
+                            .col-6
+                                select.form-control(name="ward_id")
+                                    option(value="")| -- Select ward --
+                                    each ward in wards 
+                                        option(value=`${ward.id}`)= ward.name
                         .mb-3 
                             input.form-control(type="password" name="password" placeholder="Password" required=true)
                         .mb-3 

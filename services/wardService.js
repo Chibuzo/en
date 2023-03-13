@@ -26,28 +26,6 @@ const save = async ({ result_file, ward_id, user_id, ...parties }) => {
     return { ...ward.toJSON(), vote: parties };
 }
 
-
-const view = async criteria => {
-    const { where, params } = buildCriteria({ ...criteria });
-    const pu = await PollingUnit.findOne({ where, ...params });
-    return sanitizeCase(pu.toJSON());
-}
-
-const list = async criteria => {
-    const { where, params } = buildCriteria(criteria);
-
-    const pus = await PollingUnit.findAll({
-        where,
-        order: [
-            ['createdAt', 'DESC']
-        ],
-        nest: true,
-        raw: true
-    });
-
-    return pus.map(pu => sanitizeCase(pu));
-}
-
 const fetchPollingUnitResult = async ward_id => {
     return puService.list({
         where: { ward_id },
@@ -60,13 +38,7 @@ const fetchPollingUnitResult = async ward_id => {
 }
 
 
-const sanitizeCase = pu => {
-    return { ...pu };
-}
-
 module.exports = {
     save,
-    list,
-    view,
     fetchPollingUnitResult
 }

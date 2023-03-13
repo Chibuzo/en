@@ -10,9 +10,9 @@ const { Vote } = require('../models');
 
 router.post('/new', authenticate, async (req, res, next) => {
     try {
-        const { lg_id } = req.session.user;
-        const lg = await lgService.save({ ...req.body, result_file: req.files, lg_id, user_id: req.session.user.id });
-        res.redirect('/lg/list-all');
+        const user = req.session.user;
+        const lg = await lgService.save({ ...req.body, result_file: req.files, user_id: user.id });
+        res.redirect('/confirmation');
     } catch (err) {
         next(err);
     }
@@ -20,23 +20,14 @@ router.post('/new', authenticate, async (req, res, next) => {
 
 router.get('/new', authenticate, async (req, res, next) => {
     try {
-        // const user = req.session.user;
-        // const { lg_id } = user;
-        // const lgResult = await lgService.view({
-        //     where: { id: lg_id },
-        //     include: [{
-        //         model: Vote,
-        //         as: 'vote',
-        //         where: { vote_level: VOTE_LEVEL.lg }
-        //     }]
-        // });
-        res.render('user/new-lg', { user });
+        const user = req.session.user;
+        res.render('user/new-lg', { lgs: user.agentData.lg });
     } catch (err) {
         next(err);
     }
 });
 
-router.get('/list-all', async (req, res, next) => {
+router.get('/list-all', authenticate, async (req, res, next) => {
     try {
         const { ward_id } = req.session.user;
         const puResults = await wardService.fetchPollingUnitResult(ward_id);

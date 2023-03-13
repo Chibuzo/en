@@ -9,17 +9,30 @@ block content
                 //-     |  Go Back 
         .row.justify-content-md-center 
             .col-md-7.mb-4
-                h4 #{user.agentData.ward} - Ward
+                h4
                 br/
                 form#ward-form(method="post" action="/ward/new" encType="multipart/form-data")
+                    //- .mb-3 
+                    //- .row 
+                    //-     .col-md-6
+                    //-         label Total Accredited Votes
+                    //-         input.form-control(type="text" name="" value="87,000" readonly)
+                    //-     .col-md-6 
+                    //-         label Total Valid Votes 
+                    //-         input.form-control(type="text" name="" value="47,000" readonly)
+
                     .mb-3 
-                        //- .row 
-                        //-     .col-md-6
-                        //-         label Total Accredited Votes
-                        //-         input.form-control(type="text" name="" value="87,000" readonly)
-                        //-     .col-md-6 
-                        //-         label Total Valid Votes 
-                        //-         input.form-control(type="text" name="" value="47,000" readonly)
+                        .row 
+                            .col-md-6
+                                label Local Government
+                                select.form-control(required)
+                                    option(value=`${agentData.lg.id}`)= agentData.lg.name
+                            .col-md-6
+                                label Ward
+                                select.form-control(name="ward_id" required)
+                                    option(value="")| -- Select your Ward --
+                                    each ward in agentData.wards 
+                                        option(value=`${ward.id}`)= ward.name
                     table.table.table-striped.mt-5#pu-table
                         head 
                             tr 
@@ -44,7 +57,7 @@ block content
                         .row 
                             .col-md-12 
                                 label Upload Result Sheet
-                                input.form-control.input.lg(type="file" name="result_file" multiple)
+                                input.form-control.input.lg(type="file" name="result_file" required)
                     .mb-3.text-center 
                         br/
                         input.btn.btn-success.btn-lg(type="submit" value="Submit Result")

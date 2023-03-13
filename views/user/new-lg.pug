@@ -9,17 +9,26 @@ block content
                 //-     |  Go Back 
         .row.justify-content-md-center 
             .col-md-7.mb-4
-                h4 #{user.agentData.lg_name}
+                h4
                 br/
                 form#ward-form(method="post" action="/lg/new" encType="multipart/form-data")
+                    //- .mb-3 
+                    //-     .row 
+                    //-         .col-md-6
+                    //-             label Total Accredited Votes
+                    //-             input.form-control(type="text" name="" value="87,000" readonly)
+                    //-         .col-md-6 
+                    //-             label Total Valid Votes 
+                    //-             input.form-control(type="text" name="" value="47,000" readonly)
                     .mb-3 
                         .row 
-                            .col-md-6
-                                label Total Accredited Votes
-                                input.form-control(type="text" name="" value="87,000" readonly)
-                            .col-md-6 
-                                label Total Valid Votes 
-                                input.form-control(type="text" name="" value="47,000" readonly)
+                            .col-md-12
+                                label Local Government
+                                select.form-control(name="lg_id" required)
+                                    option(value="")| -- Select your Local Govt --
+                                    each lg in lgs 
+                                        option(value=`${lg.id}`)= lg.name
+
                     table.table.table-striped.mt-5#pu-table
                         head 
                             tr 
