@@ -37,12 +37,13 @@ block content
                         .mb-3
                             //- input.form-control(type="email" name="email" placeholder="Email" aria-label="Email" required=true)
                             input.form-control(type="text" name="username" placeholder="Username" aria-label="Username" required=true)
-                        .mb-3
-                            select.form-control(name="role")
-                                option(value="") -- Select Role --
-                                option(value="lg") Local Govt Agent
-                                option(value="ward") Ward Agent 
-                                option(value="pu") Polling Unit Agent
+                        //- .mb-3
+                        //-     select.form-control(name="role")
+                        //-         option(value="") -- Select Role --
+                        //-         option(value="lg") Local Govt Agent
+                        //-         option(value="ward") Ward Agent 
+                        //-         option(value="pu") Polling Unit Agent
+                        input(type="hidden" name="role" value="pu")
                         .mb-3.row
                             .col-6 
                                 select.form-control(name="lg_id")

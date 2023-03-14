@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         lid: {
             type: DataTypes.INTEGER
         }
-    }, { sequelize, timestamps: false });
+    }, {
+        sequelize,
+        timestamps: false,
+        tableName: 'lgs'
+    });
 
     Lg.associate = function (models) {
         Lg.hasMany(models.Ward, { as: 'wards', foreignKey: 'lg_id' });

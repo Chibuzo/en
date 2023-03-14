@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
         vote_level_id: {
             type: DataTypes.INTEGER
         }
-    }, { sequelize, timestamps: true });
+    }, {
+        sequelize,
+        tableName: 'votes',
+        timestamps: true
+    });
 
     Vote.associate = function (models) {
         Vote.hasOne(models.PollingUnit, { foreignKey: 'vote_id' });

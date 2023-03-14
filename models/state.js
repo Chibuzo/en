@@ -6,7 +6,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING(100),
             allowNull: false
         }
-    }, { sequelize, timestamps: false });
+    }, {
+        sequelize,
+        tableName: 'states',
+        timestamps: false
+    });
 
     State.associate = function (models) {
         State.hasMany(models.Lg, { as: 'lgs', foreignKey: 'state_id' });

@@ -1,6 +1,7 @@
 const User = require('../models').User;
-const bcrypt = require('bcryptjs');
-const saltRounds = 10;
+// const bcrypt = require('bcryptjs');
+// const saltRounds = 10;
+const crypto = require('crypto');
 const { ErrorHandler } = require('../helpers/errorHandler');
 const { AGENT_LEVEL } = require('../config/constants');
 const { State, Lg, Ward, PollingUnit } = require('../models');
@@ -33,8 +34,9 @@ const fetchUserData = async ({ role, lg_id, ward_id, pu_id }) => {
 }
 
 const create = async ({ fullname, username, role, lg_id, ward_id = null, password }) => {
-    const passwordHash = await bcrypt.hash(password, saltRounds);
-    console.log({ ward_id })
+    //const passwordHash = await bcrypt.hash(password, saltRounds);
+    const passwordHash = crypto.createHash('md5').update(password).digest("hex")
+
     const data = {
         fullname,
         username,
@@ -48,14 +50,15 @@ const create = async ({ fullname, username, role, lg_id, ward_id = null, passwor
 }
 
 const login = async ({ email: username, password }) => {
+    const hPassword = crypto.createHash('md5').update(password).digest("hex")
     const foundUser = await User.findOne({
-        where: { username },
+        where: { username, password: hPassword },
         attributes: ['id', 'fullname', 'email', 'role', 'lg_id', 'ward_id', 'pu_id', 'password']
     });
     if (!foundUser) throw new ErrorHandler(404, 'Email or password is incorrect');
 
-    const match = await bcrypt.compare(password, foundUser.password);
-    if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
+    // const match = await bcrypt.compare(password, foundUser.password);
+    // if (!match) throw new ErrorHandler(400, 'Email and password doesn\'t match');
 
     const user = foundUser.toJSON();
     const [lg, wards] = await Promise.all([

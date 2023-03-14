@@ -14,7 +14,7 @@ const userPage = {
     admin: '/users/'
 };
 
-router.get('/', authenticateAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
     try {
         const [users, lgs, wards] = await Promise.all([
             userService.list(),

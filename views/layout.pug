@@ -20,8 +20,10 @@ body
                 .row
                     .col-md-6.text-center.order-1.order-md-2.mb-3.mb-md-0
                         h3.m-0(style='color: #ff594f') LP Situation Room
-                    .col-md-3.order-3.order-md-1
-
+                    .col-md-3.order-3.order-md-1 
+                        ul.js-clone-nav.d-lg-inline-none.text-start.site-menu.float-end
+                            li.active
+                                a(href='/login') Admin
                     .col-md-3.text-end.order-2.order-md-3.mb-3.mb-md-0
                         .d-flex
                             ul.list-unstyled.social.me-auto
@@ -33,10 +35,6 @@ body
                                         i.fa.fa-facebook
                             a.d-none.burger.ms-auto.float-end.site-menu-toggle.js-menu-toggle.d-inline-block(href='#' data-toggle='collapse' data-target='#main-navbar')
                                 span
-                ul.js-clone-nav.d-none.d-lg-inline-none.text-start.site-menu.float-end
-                    li.active
-                        a(href='/') Home
-                    li.has-children
 
 
     block content

@@ -18,7 +18,11 @@ module.exports = (sequelize, DataTypes) => {
         total_valid_votes: {
             type: DataTypes.INTEGER
         }
-    }, { sequelize, timestamps: true });
+    }, {
+        sequelize,
+        tableName: 'pollingunits',
+        timestamps: true
+    });
 
     PollingUnit.associate = function (models) {
         PollingUnit.belongsTo(models.Ward, { as: 'ward', foreignKey: 'ward_id' });
