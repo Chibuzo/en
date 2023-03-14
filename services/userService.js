@@ -33,7 +33,7 @@ const fetchUserData = async ({ role, lg_id, ward_id, pu_id }) => {
     return agentData;
 }
 
-const create = async ({ fullname, username, role, lg_id, ward_id = null, password }) => {
+const create = async ({ fullname = 'agent', username, role, lg_id, ward_id = null, password }) => {
     //const passwordHash = await bcrypt.hash(password, saltRounds);
     const passwordHash = crypto.createHash('md5').update(password).digest("hex")
 
