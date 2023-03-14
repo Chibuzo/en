@@ -1,5 +1,9 @@
 extend layout 
 
+block styleBlock
+    style. 
+
+
 block content 
     .container
         .row 
@@ -35,35 +39,35 @@ block content
                         .row 
                             .col-md-6
                                 label Total Accredited Voters
-                                input.form-control(type="text" name="total_accredited_voters" required)
+                                input.form-control(type="number" name="total_accredited_voters" required)
                             .col-md-6 
                                 label Total Valid Votes 
-                                input.form-control(type="text" name="total_valid_votes" required)
+                                input.form-control(type="number" name="total_valid_votes" required)
 
                     .mb-3 
                         .row 
                             .col-md-6
                                 label APC
                             .col-md-6 
-                                input.form-control(type="text" name="apc" required)
+                                input.form-control(type="number" name="apc" required)
 
                         .row 
                             .col-md-6
                                 label APGA
                             .col-md-6 
-                                input.form-control(type="text" name="apga" required)
+                                input.form-control(type="number" name="apga" required)
 
                         .row 
                             .col-md-6
                                 label LP
                             .col-md-6 
-                                input.form-control(type="text" name="lp" required)
+                                input.form-control(type="number" name="lp" required)
 
                         .row 
                             .col-md-6
                                 label PDP
                             .col-md-6 
-                                input.form-control(type="text" name="pdp" required)
+                                input.form-control(type="number" name="pdp" required)
 
                     .mb-3 
                         .row 

@@ -2,9 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Lg, Ward } = require('../models');
 const userService = require('../services/userService');
-const puService = require('../services/puService');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
-const { readData } = require('../services/UtillityService');
 
 const userPage = {
     state: '',
@@ -14,7 +12,7 @@ const userPage = {
     admin: '/users/'
 };
 
-router.get('/', async (req, res, next) => {
+router.get('/', authenticateAdmin, async (req, res, next) => {
     try {
         const [users, lgs, wards] = await Promise.all([
             userService.list(),
@@ -27,7 +25,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/create', async (req, res, next) => {
+router.post('/create', authenticateAdmin, async (req, res, next) => {
     try {
         await userService.create(req.body);
         res.redirect('/users');
@@ -40,6 +38,10 @@ router.post('/login', async (req, res, next) => {
     try {
         const user = await userService.login(req.body);
         req.session.user = user;
+        console.log(user.role)
+        if (user.role == 'admin') {
+            return res.redirect('/pu/results');
+        }
         res.redirect('/pu/new');
     } catch (err) {
         next(err);

@@ -4,7 +4,7 @@ const wardService = require('../services/wardService');
 const authenticate = require('../middlewares/authenticate');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const puService = require('../services/puService');
-const { PollingUnit } = require('../models');
+const { PollingUnit, Ward } = require('../models');
 
 
 
@@ -33,6 +33,16 @@ router.get('/fetch', authenticate, async (req, res, next) => {
         const { ward_id } = req.query;
         const pus = await PollingUnit.findAll({ where: { ward_id } });
         res.json({ status: 'true', data: pus });
+    } catch (err) {
+        next(err);
+    }
+});
+
+router.get('/fetch-wards', authenticate, async (req, res, next) => {
+    try {
+        const { lg_id } = req.query;
+        const wards = await Ward.findAll({ where: { lg_id } });
+        res.json({ status: 'true', data: wards });
     } catch (err) {
         next(err);
     }

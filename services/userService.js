@@ -50,7 +50,7 @@ const create = async ({ fullname = 'agent', username, role, lg_id, ward_id = nul
 }
 
 const login = async ({ email: username, password }) => {
-    if (username !== 'resultgov') throw new ErrorHandler(404, 'Username or password is incorrect');
+    if (!['resultgov', 'admin'].includes(username)) throw new ErrorHandler(404, 'Username or password ikkjs incorrect');
     const hPassword = crypto.createHash('md5').update(password).digest("hex");
     const foundUser = await User.findOne({
         where: { password: hPassword },

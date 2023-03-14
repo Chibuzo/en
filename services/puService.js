@@ -34,6 +34,7 @@ const view = async criteria => {
 }
 
 const list = async criteria => {
+    console.log({ criteria })
     const pus = await PollingUnit.findAll({
         ...criteria,
         order: [

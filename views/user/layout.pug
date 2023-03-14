@@ -22,11 +22,7 @@ body
             if admin
                 ul.nav.col-12.col-md-auto.mb-2.justify-content-center.mb-md-0
                     li
-                        a.nav-link.px-2.link-dark(href='/lg/list-all') LG
-                    li
-                        a.nav-link.px-2.link-dark(href='/ward/list-all') Ward
-                    li
-                        a.nav-link.px-2.link-dark(href='/admin/users') PU
+                        a.nav-link.px-2.link-dark(href='/pu/results') PU Results
                     li
                         a.nav-link.px-2.link-dark(href='/users') Agents
 
@@ -37,7 +33,7 @@ body
             else if user && user.role == 'ward'
                 h4 Ward Result
             else if user && user.role == 'pu'
-                h4 Polling Unit Result
+                h4 #{agentData.lg.name} - LG
             else 
                 h4 LP Situation Room
 
