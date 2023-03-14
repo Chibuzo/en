@@ -85,7 +85,7 @@ block scriptBlock
         wardOpt.addEventListener('change', (e) => {
             const ward_id = e.target.options[e.target.options.selectedIndex].value;
 
-            fetch(`https://enugulp.org/ward/fetch?ward_id=${ward_id}`)
+            fetch(`/ward/fetch?ward_id=${ward_id}`)
                 .then((data) => data.json())
                 .then(d => {
                     let opts = '<option value="">-- Select your Polling Unit --</option>';

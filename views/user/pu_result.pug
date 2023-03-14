@@ -73,7 +73,7 @@ block scriptBlock
         lgOpt.addEventListener('change', (e) => {
             const lg_id = e.target.options[e.target.options.selectedIndex].value;
 
-            fetch(`https://enugulp.org/ward/fetch-wards?lg_id=${lg_id}`)
+            fetch(`/ward/fetch-wards?lg_id=${lg_id}`)
                 .then((data) => data.json())
                 .then(d => {
                     let opts = '<option value="">-- Select ward --</option>';
