@@ -6,7 +6,7 @@ const uploadFile = (file, filename) => {
     }
     // check file type
     const allowedFileTypes = ['image/png', 'image/jpeg'];
-    if (!allowedFileTypes.includes(file.mimetype)) {
+    if (!allowedFileTypes.includes(file.result_file.mimetype)) {
         throw new ErrorHandler(400, 'Unsupported file type');
     }
     const ext = file.result_file.name.split('.').pop();
