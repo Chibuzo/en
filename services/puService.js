@@ -66,7 +66,7 @@ const list = async criteria => {
 
 
 const isPositiveInteger = num => {
-    const isInteger = Number.isInteger(num);
+    const isInteger = Number.isInteger(Number(num));
     const isPositive = num > 0;
     return isInteger && isPositive;
 }
