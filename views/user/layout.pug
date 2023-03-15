@@ -19,16 +19,14 @@ body
     .container
         header.d-flex.flex-wrap.align-items-center.justfy-content-center.justfy-content-md-between.py-3.mb-4.border-bottom
             //- a.d-flex.align-items-center.col-md-3.mb-2.mb-md-0.text-dark.text-decoration-none(href='/') Home
-            if admin
-                ul.nav.col-12.col-md-auto.mb-2.justify-content-center.mb-md-0
-                    li
-                        a.nav-link.px-2.link-dark(href='/pu/results') PU Results
-                    li
-                        a.nav-link.px-2.link-dark(href='/users') Agents
 
             .col-9
                 if admin  
-                    h4 Admin
+                    ul.nav.col-12.col-md-auto.mb-2.mb-md-0
+                        li
+                            a.nav-link.px-2.link-dark(href='/pu/results') PU Results
+                        li
+                            a.nav-link.px-2.link-dark(href='/users') Agents
                 else if user && user.role == 'lg'
                     h4 #{agentData.lg.name}
                 else if user && user.role == 'ward'

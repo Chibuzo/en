@@ -44,6 +44,7 @@ block content
                             th LP
                             th PDP 
                             th Others 
+                            th Result
                             th Action 
                     tbody 
                         each pu in puResults
@@ -55,6 +56,8 @@ block content
                                 td= pu.vote.pdp
                                 td 
                                 td
+                                    a.result(href='' data-bs-toggle="modal" data-bs-target="#resultModal" data-result=`/${pu.result_sheet}`) View
+                                td
 
                     tfoot
                         tr 
@@ -65,6 +68,18 @@ block content
                             td= puResults.parties.pdp
                             td 684
                             td 
+                            td
+
+    #resultModal.modal.fade(data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true')
+        .modal-dialog.modal-xl
+            .modal-content
+                .modal-header
+                    h5#staticBackdropLabel.modal-title Inec Result Form
+                    button.btn-close(type='button' data-bs-dismiss='modal' aria-label='Close')
+                .modal-body
+                    img#result-image(alt="result file" style="width: 100%")
+                .modal-footer
+                    button.btn.btn-secondary(type='button' data-bs-dismiss='modal') Close
 
 block scriptBlock
     script.
@@ -85,3 +100,13 @@ block scriptBlock
                     }
                 });
         });
+
+        let image;
+
+        const results = document.getElementsByClassName("result");
+        for (let i = 0; i < results.length; i++) {
+            results[i].addEventListener("click", function() {
+                image = this.dataset.result;
+                document.getElementById("result-image").src = image;
+            });
+        }
