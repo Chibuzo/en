@@ -9,7 +9,7 @@ const nullVotes = { apc: 0, apga: 0, lp: 0, pdp: 0 };
 const save = async ({ ward_id, pu_id, total_accredited_voters, total_valid_votes, result_file, user_id, ...parties }) => {
     if (!isPositiveInteger(total_accredited_voters)) throw new ErrorHandler(400, 'Total accredited voters must be a positive number');
     if (!isPositiveInteger(total_valid_votes)) throw new ErrorHandler(400, 'Total valid votes must be a positive number');
-    
+
     const pu = await PollingUnit.findByPk(pu_id);
     if (!pu) throw new ErrorHandler(400, 'Invalid polling unit');
 
@@ -67,7 +67,7 @@ const list = async criteria => {
 
 const isPositiveInteger = num => {
     const isInteger = Number.isInteger(num);
-    const isPositive = number > 0;
+    const isPositive = num > 0;
     return isInteger && isPositive;
 }
 
