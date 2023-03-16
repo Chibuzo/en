@@ -13,15 +13,6 @@ block content
                 .col-lg-7.text-center
                     h4.heading.mb-5(style='color: #3cb371') 2023 Enugu State Gubernatorial Election
 
-
-                    //- .row 
-                    //-     .col-md-2 Party   
-                    //-     .col-md-6 Percentage 
-                    //-     .col-md-3 Votes 
-                    //- .row 
-                    //-     .col-md-2 APGA   
-                    //-     .col-md-6 35% 
-                    //-     .col-md-3 234,968 
             .row.justify-content-center.mb-5
                 .col-lg-7
                     table.table
@@ -32,33 +23,33 @@ block content
                                 th.votes Votes 
                         body 
                             tr 
-                                td APGA 
-                                td 
-                                    .progress 
-                                        .progress-bar.bg-danger(role="progressbar" style="width: 1%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") 0%
-                                td.votes 0
-                            tr 
                                 td APC 
                                 td 
                                     .progress 
-                                        .progress-bar.bg-warning(role="progressbar" style="width: 1%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") 0%
-                                td.votes 0
+                                        .progress-bar.bg-danger(role="progressbar" style=`width: ${result[0].apc.percentage}%` aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") #{result[0].apc.percentage}%
+                                td.votes #{result[0].apc.votes}
+                            tr 
+                                td APGA
+                                td 
+                                    .progress 
+                                        .progress-bar.bg-warning(role="progressbar" style=`width: ${result[1].apga.percentage}%` aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") #{result[1].apga.percentage}%
+                                td.votes #{result[1].apga.votes}
                             tr 
                                 td LP 
                                 td 
                                     .progress 
-                                        .progress-bar.bg-success(role="progressbar" style="width: 1%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") 0%
-                                td.votes 0
+                                        .progress-bar.bg-success(role="progressbar" style=`width: ${result[2].lp.percentage}%` aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") #{result[2].lp.percentage}%
+                                td.votes #{result[2].lp.votes}
                             tr 
                                 td PDP 
                                 td 
                                     .progress 
-                                        .progress-bar.bg-info(role="progressbar" style="width: 1%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") 0%
-                                td.votes 0
+                                        .progress-bar.bg-info(role="progressbar" style=`width: ${result[3].pdp.percentage}%` aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") #{result[3].pdp.percentage}%
+                                td.votes #{result[3].pdp.votes}
                             tr 
                                 td OTHERS
                                 td 
                                     .progress 
-                                        .progress-bar(role="progressbar" style="width: 1%" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") 0%
-                                td.votes 0
+                                        .progress-bar(role="progressbar" style=`width: ${result[4].others.percentage}%` aria-valuenow="0" aria-valuemin="0" aria-valuemax="100") #{result[4].others.percentage}%
+                                td.votes #{result[4].others.votes}
 

@@ -5,6 +5,7 @@ const puService = require('../services/puService');
 const authenticate = require('../middlewares/authenticate');
 const authenticateAdmin = require('../middlewares/authenticateAdmin');
 const { VOTE_LEVEL } = require('../config/constants');
+const { Op } = require("sequelize");
 
 router.post('/', authenticate, async (req, res, next) => {
     try {
@@ -31,7 +32,7 @@ router.get('/results', authenticateAdmin, async (req, res, next) => {
         const { lg_id = 0, ward_id = 0 } = req.query;
         const [puResults, lgs] = await Promise.all([
             puService.list({
-                where: { ward_id },
+                where: { ward_id, vote_id: { [Op.gt]: 0 } },
                 include: [{
                     model: Vote,
                     as: 'vote',

@@ -9,8 +9,10 @@ const { Vote } = require('../models');
 
 router.get('/', async (req, res, next) => {
     try {
-        res.render('index', { title: 'Welcome' });
+        const result = await puService.computeResult({});
+        res.render('index', { title: 'Welcome', result });
     } catch (err) {
+        console.log(err)
         next(err);
     }
 });

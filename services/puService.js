@@ -1,10 +1,10 @@
-const { PollingUnit, Sequelize } = require('../models');
+const { PollingUnit, Vote } = require('../models');
 const { uploadFile } = require('../helpers/fileUpload');
 const { ErrorHandler } = require('../helpers/errorHandler');
-const { buildCriteria } = require('./UtillityService');
-const { AGENT_LEVEL } = require('../config/constants');
+const { AGENT_LEVEL, VOTE_LEVEL } = require('../config/constants');
+const { Op } = require("sequelize");
 
-const nullVotes = { apc: 0, apga: 0, lp: 0, pdp: 0 };
+const nullVotes = { apc: 0, apga: 0, lp: 0, pdp: 0, others: 0 };
 
 const save = async ({ ward_id, pu_id, total_accredited_voters, total_valid_votes, result_file, user_id, ...parties }) => {
     if (!isPositiveInteger(total_accredited_voters)) throw new ErrorHandler(400, 'Total accredited voters must be a positive number');
@@ -45,7 +45,7 @@ const list = async criteria => {
         nest: true,
         raw: true
     });
-    let accredited_voters = 0, valid_votes = 0, parties = { apc: 0, apga: 0, lp: 0, pdp: 0 };
+    let accredited_voters = 0, valid_votes = 0, parties = { apc: 0, apga: 0, lp: 0, pdp: 0, others: 0 };
     const _pus = pus.map(pu => {
         accredited_voters += parseInt(pu.total_accredited_voters || 0);
         valid_votes += parseInt(pu.total_valid_votes || 0);
@@ -54,6 +54,9 @@ const list = async criteria => {
         parties.apga += parseInt(vote.apga, 10);
         parties.lp += parseInt(vote.lp);
         parties.pdp += parseInt(vote.pdp, 10);
+        const subTotal = parseInt(vote.apc) + parseInt(vote.apga, 10) + parseInt(vote.lp) + parseInt(vote.pdp, 10);
+        vote.others = (pu.total_valid_votes || 0) - subTotal;
+        parties.others += vote.others;
         return { ...pu, vote };
     });
 
@@ -62,6 +65,26 @@ const list = async criteria => {
     _pus.parties = parties;
 
     return _pus;
+}
+
+const computeResult = async criteria => {
+    const result = await list({
+        where: { vote_id: { [Op.gt]: 0 } },
+        include: [{
+            model: Vote,
+            as: 'vote',
+            where: { vote_level: VOTE_LEVEL.pu }
+        }]
+    });
+
+    return Object.keys(result.parties).map(party => {
+        return {
+            [party]: {
+                votes: result.parties[party],
+                percentage: Math.round((result.parties[party] / result.total_valid_votes) * 100)
+            }
+        }
+    });
 }
 
 
@@ -74,5 +97,6 @@ const isPositiveInteger = num => {
 module.exports = {
     save,
     list,
-    view
+    view,
+    computeResult
 }

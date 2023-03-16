@@ -38,7 +38,6 @@ router.post('/login', async (req, res, next) => {
     try {
         const user = await userService.login(req.body);
         req.session.user = user;
-        console.log(user.role)
         if (user.role == 'admin') {
             return res.redirect('/pu/results');
         }
